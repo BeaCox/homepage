@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "iconfont";
+    /* Project id 3706527 */
+    src: url('//at.alicdn.com/t/c/font_3706527_ikxoqtyejeh.woff2?t=1665738916385') format('woff2'),
+        url('//at.alicdn.com/t/c/font_3706527_ikxoqtyejeh.woff?t=1665738916385') format('woff'),
+        url('//at.alicdn.com/t/c/font_3706527_ikxoqtyejeh.ttf?t=1665738916385') format('truetype');
+}
+
+@font-face {
+    font-family: "iconfont";
+    /* Project id 3706527 */
+    src: url('//at.alicdn.com/t/c/font_3706527_ikxoqtyejeh.woff2?t=1665738916385') format('woff2'),
+        url('//at.alicdn.com/t/c/font_3706527_ikxoqtyejeh.woff?t=1665738916385') format('woff'),
+        url('//at.alicdn.com/t/c/font_3706527_ikxoqtyejeh.ttf?t=1665738916385') format('truetype');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 24px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-email:before {
+    content: "\e684";
+}
+
+.icon-github:before {
+    content: "\e66f";
+}
+
+.icon-telegram:before {
+    content: "\e731";
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
