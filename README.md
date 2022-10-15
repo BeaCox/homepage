@@ -1,2 +1,2 @@
 # homepage
-My homepage made with Tailwind CSS. Help yourself to use.
+A minimalist homepage made with Tailwind CSS. Help yourself to use.
