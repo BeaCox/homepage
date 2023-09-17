@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeaCox</title> 
+    <title>BeaCox</title>
     <meta name="description" content="BeaCox的个人主页">
     <meta name="keywords" content="BeaCox,SJTU,信息安全">
     <link rel="stylesheet" href="./css/tailwind.css">
@@ -13,16 +13,16 @@
 </head>
 
 <body class="bg-white dark:bg-black">
-    <div class="flex flex-wrap items-center lg:h-5/6 lg:my-24 ">
+    <div class="flex flex-wrap items-center lg:h-5/6 lg:my-8 ">
         <div
-            class="w-80 h-60 mx-auto my-6 shadow-lg rounded-md transform transition hover:shadow-xl hover:-translate-y-0.5 dark:bg-gray-800">
+            class="w-80 h-60 mx-auto my-5 shadow-lg rounded-md transform transition hover:shadow-xl hover:-translate-y-0.5 dark:bg-gray-800">
             <div class="flex flex-wrap">
                 <div class="w-60">
                     <img class="my-4 h-24 rounded-full mx-auto cursor-pointer transition duration-300 transform hover:scale-110"
                         src="/img/avatar.png" alt="avatar" />
                     <p class="mt-2 mb-0 text-xl text-center font-serif font-extrabold dark:text-gray-200">BeaCox</p>
-                    <p class="-mt-1 text-l text-center font-sans font-light text-gray-400"> On the way to be a hacker
-                    </p>
+                    <p class="-mt-1 text-l text-center font-sans font-light text-gray-400"> Stay humble, remain
+                        critical.</p>
                     <div class="my-4 w-full text-center">
                         <a class="inline-block mx-2 px-4 py-2 rounded-lg transform transition bg-blue-500 hover:bg-blue-400 hover:-translate-y-0.5 focus:ring-blue-500 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-offset-1 active:bg-blue-600 uppercase tracking-wider font-semibold text-xs text-white shadow-lg"
                             href="https://blog.beacox.space" target="_blank">
@@ -50,30 +50,59 @@
                 </div>
             </div>
         </div>
-        <div
+        <ul
             class="w-11/12 h-auto mx-auto mt-6 shadow-lg rounded-lg  transform transition hover:shadow-xl hover:-translate-y-0.5 lg:w-6/12 dark:bg-gray-800">
-            <div class="mx-6 my-4 font-serif text-center dark:text-gray-400">
-                <p><b>Information Security</b> undergraduate @SJTU-21.</p>
-                <p>Wanna be a white-hat hacker.</p>
-                <p>An avid fan of F1🏎 and basketball🏀.</p>
-                <p>My name can be split into "Be a cox".</p>
-                <p>It means that I don't wanna go with the flow.</p>
-                <p>I wanna decide the direction of my life.</p>
-                <p>And Cox is also from Kobe's full name: Kobe Bean Bryant Cox.</p>
-                <p>All of my open source projects are available on GitHub.</p>
-                <p>Welcome to contact me.</p>
-            </div>
-            <div class="mx-6 my-4">
-                <h1 class="font-mono font-extrabold text-2xl dark:text-gray-400">Skills:</h1>
+            <li class="mx-6 my-4">
+                <h2 class="font-mono font-extrabold text-2xl dark:text-gray-400">About:</h2>
+                <div class="font-serif dark:text-gray-400 pl-4 md:pl-8">
+                    <p>My name is <b>Yuansheng Yang</b>.</p>
+                    <p>My online identity is <b>BeaCox</b>.It can be split into "Be a cox".</p>
+                    <p>It means I want to take charge of my life and not go with the flow.</p>
+                    <p>My academic interest is in <b>system & software security</b>.</p>
+                    <p>I'm also an avid fan of F1🏎 and basketball🏀.</p>
+                    <p>The CTF fields I am currently studying are:</p>
+                    <ul class="list-disc list-inside pl-4 md:pl-8">
+                        <li>PWN</li>
+                        <li>Reverse</li>
+                        <li>Web</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mx-6 my-4 dark:text-gray-400">
+                <h2 class="font-mono font-extrabold text-2xl">Education:</h2>
+                <table class="table-auto min-w-full border-spacing-80 border border-slate-400 font-serif">
+                    <thead>
+                        <tr>
+                            <th class="border border-slate-200 bg-slate-100">Date</th>
+                            <th class="border border-slate-200 bg-slate-100">Institution</th>
+                            <th class="border border-slate-200 bg-slate-100">Major</th>
+                            <th class="border border-slate-200 bg-slate-100">Degree</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-slate-200">2021-2025</td>
+                            <td class="border border-slate-200">Shanghai Jiao Tong University</td>
+                            <td class="border border-slate-200">Information Security</td>
+                            <td class="border border-slate-200">Bachelor </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li class="mx-6 my-4">
+                <h2 class="font-mono font-extrabold text-2xl dark:text-gray-400">Skills:</h2>
                 <img class="mx-auto" src="./img/skills.svg" />
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
     </div>
     <div class="flex">
-        <div class="mx-auto my-4 lg:-my-4">
-            <p class="text-center text-gray-400">Copyright © Since 2022 <a class="font-bold hover:underline hover:text-gray-600" href="https://beacox.space" target="_blank">BeaCox</a></p>
-            <p class="text-center text-gray-400"><a class="hover:underline hover:text-gray-600 transform transition" href="https://beian.miit.gov.cn/" target="_blank">沪ICP备2022016895号-2</a></p>
+        <div class="mx-auto my-4">
+            <p class="text-center text-gray-400">Copyright © Since 2022 <a
+                    class="font-bold hover:underline hover:text-gray-600" href="https://beacox.space"
+                    target="_blank">BeaCox</a></p>
+            <p class="text-center text-gray-400"><a class="hover:underline hover:text-gray-600 transform transition"
+                    href="https://beian.miit.gov.cn/" target="_blank">沪ICP备2022016895号-2</a></p>
         </div>
     </div>
 </body>
