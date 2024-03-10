@@ -16,6 +16,7 @@ jobs:
 
     - name: Copy Dist to Main
       run: |
+        git checkout main
         mkdir -p temp_main
         cp -R dist/* temp_main/
         git checkout main
