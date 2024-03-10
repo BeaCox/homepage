@@ -16,9 +16,9 @@ jobs:
 
     - name: Copy Dist to Main
       run: |
-        git checkout main
+        git checkout dev
         mkdir -p temp_main
-        cp -R dist/* temp_main/
+        cp -Rf dist/* temp_main/
         git checkout main
         mv temp_main/* .
         git add .
