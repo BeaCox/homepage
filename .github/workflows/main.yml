@@ -19,7 +19,8 @@ jobs:
         git checkout dev
         mkdir -p temp_main
         cp -Rf dist/* temp_main/
-        git checkout main
+        git fetch
+        git checkout -B main origin/main
         mv temp_main/* .
         git add .
         git commit -m "Update main branch with latest dist files"
