@@ -1,0 +1,24 @@
+name: Copy Dist to Main
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  copy_dist_to_main:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Copy Dist to Main
+      run: |
+        mkdir -p temp_main
+        cp -R dist/* temp_main/
+        git checkout main
+        mv temp_main/* .
+        git add .
+        git commit -m "Update main branch with latest dist files"
+        git push origin main
