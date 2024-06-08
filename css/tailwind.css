@@ -14,16 +14,20 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-twitter:before {
+    content: "\e655";
+}
+
+.icon-discord:before {
+    content: "\ebf8";
+}
+
 .icon-email:before {
-    content: "\e684";
+    content: "\e685";
 }
 
 .icon-github:before {
     content: "\e66f";
-}
-
-.icon-telegram:before {
-    content: "\e731";
 }
 
 @tailwind base;
