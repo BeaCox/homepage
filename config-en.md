@@ -25,21 +25,19 @@ I follow **F1** (Hamilton fan) and the **NBA** (Kyrie Irving stan), enjoy single
 
 I also watch anime — favorite characters are **[Anon Chihaya](https://bandori.fandom.com/wiki/Chihaya_Anon)** and **[Subaru Awa](https://girls-band-cry.fandom.com/wiki/Subaru_Awa)**.
 
-## Education
+## Education {.timeline}
 
-| Date | Institution | Major | Degree |
-| ---- | ----------- | ----- | ------ |
-| 2021–2025 | Shanghai Jiao Tong University | Information Security | B.Eng. |
-| 2025–2027 | Shanghai Jiao Tong University | Cyberspace Security | M.Eng. |
+- 2025–2027 · **M.Eng.** in Cyberspace Security @ Shanghai Jiao Tong University
+- 2021–2025 · **B.Eng.** in Information Security @ Shanghai Jiao Tong University
 
-## Experience
+## Experience {.timeline}
 
 - 2025.06–2025.09 · Security Researcher Intern @ [CETC](https://www.cetc.com.cn/)
 
-## Awards
+## Awards {.timeline}
 
-- 2024-03 · Blue Belt from [pwn.college](https://pwn.college/hacker/33306)
 - 2024-04 · [SJTU CTF 2024](https://play.0ops.sjtu.cn) 6th place
+- 2024-03 · Blue Belt from [pwn.college](https://pwn.college/hacker/33306)
 
 ## CVEs
 

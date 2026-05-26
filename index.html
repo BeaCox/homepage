@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BeaCox</title>
   <meta name="description" content="BeaCox's Homepage">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#0e1525" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://cdn.simpleicons.org">
 </head>
 <body>
   <main class="container" id="app"></main>
@@ -18,11 +19,30 @@
 
   <script>
   var ICONS = {
-    github: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>',
-    email: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
-    rss: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>',
-    discord: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-    blog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>'
+    github: '<img class="link-icon" src="https://cdn.simpleicons.org/github" alt="GitHub">',
+    email: '<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+    rss: '<img class="link-icon" src="https://cdn.simpleicons.org/rss/F99000" alt="RSS">',
+    discord: '<img class="link-icon" src="https://cdn.simpleicons.org/discord" alt="Discord">',
+    blog: '<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg>'
+  };
+
+  var SECTION_ICONS = {
+    about: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    education: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>',
+    experience: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+    awards: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg>',
+    cves: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>',
+    hobbies: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>'
+  };
+
+  var THEME_ICONS = {
+    light: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
+    dark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>'
+  };
+
+  var LANG_ICONS = {
+    zh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
+    en: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>'
   };
 
   function slugify(t) {
@@ -56,11 +76,86 @@
     }).join("") + "</ul>";
   }
 
+  function parseTimeline(text) {
+    var items = text.split("\n").filter(function (l) { return l.trim(); });
+    return '<div class="timeline">' + items.map(function (l) {
+      var raw = l.replace(/^- /, "");
+      var parts = raw.split(" · ");
+      var date = parts[0] || "";
+      var desc = parts.slice(1).join(" · ");
+      return '<div class="timeline-item">' +
+        '<div class="timeline-dot"></div>' +
+        '<div class="timeline-date">' + date + '</div>' +
+        '<div class="timeline-desc">' + inline(desc) + '</div>' +
+        '</div>';
+    }).join("") + '</div>';
+  }
+
   function parseParagraphs(text) {
     return text.split(/\n\n+/).filter(Boolean).map(function (p) {
       return "<p>" + inline(p.trim().replace(/\n/g, "<br>")) + "</p>";
     }).join("");
   }
+
+  // ===== Heading parser: supports {#id}, {.class}, {#id .class} =====
+  function parseHeading(line) {
+    var hm = line.match(/^## (.+?)(?:\s*\{([^}]+)\})?\s*$/);
+    if (!hm) return null;
+    var title = hm[1].trim();
+    var attrs = hm[2] || "";
+    var id = "";
+    var cls = "";
+    attrs.split(/\s+/).forEach(function (tok) {
+      if (tok.charAt(0) === "#") id = tok.slice(1);
+      else if (tok.charAt(0) === ".") cls = tok.slice(1);
+    });
+    if (!id) id = slugify(title);
+    return { title: title, id: id, cls: cls };
+  }
+
+  // ===== Theme =====
+  var currentTheme = localStorage.getItem("theme") || "system";
+
+  function applyTheme() {
+    var html = document.documentElement;
+    if (currentTheme === "system") {
+      html.removeAttribute("data-theme");
+    } else {
+      html.setAttribute("data-theme", currentTheme);
+    }
+  }
+
+  function isDark() {
+    if (currentTheme === "dark") return true;
+    if (currentTheme === "light") return false;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  function toggleTheme() {
+    if (isDark()) {
+      currentTheme = "light";
+    } else {
+      currentTheme = "dark";
+    }
+    localStorage.setItem("theme", currentTheme);
+    applyTheme();
+    updateThemeBtn();
+  }
+
+  var themeBtnEl = null;
+  function updateThemeBtn() {
+    if (!themeBtnEl) return;
+    var dark = isDark();
+    themeBtnEl.innerHTML = (dark ? THEME_ICONS.light : THEME_ICONS.dark) +
+      '<span>' + (dark ? (currentLang === "zh" ? "浅色" : "Light") : (currentLang === "zh" ? "深色" : "Dark")) + '</span>';
+    themeBtnEl.title = dark ? "Switch to light mode" : "Switch to dark mode";
+  }
+
+  applyTheme();
+
+  // ===== Language =====
+  var currentLang = localStorage.getItem("lang") || (navigator.language.startsWith("zh") ? "zh" : "en");
+  var scrollHandler = null;
 
   function render(raw) {
     var fm = {};
@@ -75,13 +170,19 @@
     }
 
     var app = document.getElementById("app");
+    app.innerHTML = "";
+
+    if (scrollHandler) {
+      window.removeEventListener("scroll", scrollHandler);
+      scrollHandler = null;
+    }
 
     var sections = [];
     var cur = null;
     body.split("\n").forEach(function (line) {
-      var hm = line.match(/^## (.+?)(?:\s*\{\.(\S+)\})?\s*$/);
-      if (hm) {
-        cur = { title: hm[1].trim(), cls: hm[2] || "", lines: [] };
+      var h = parseHeading(line);
+      if (h) {
+        cur = { title: h.title, id: h.id, cls: h.cls, lines: [] };
         sections.push(cur);
       } else if (cur) {
         cur.lines.push(line);
@@ -108,7 +209,7 @@
       var text = s.lines.join("\n").trim();
       if (!text) return;
 
-      // Links section → nav pills
+      // Links section
       if (s.title === "Links") {
         var linksNav = document.createElement("nav");
         linksNav.className = "links";
@@ -126,24 +227,52 @@
       }
 
       // Content sections
-      var id = slugify(s.title);
       var el = document.createElement("section");
       el.className = "section" + (s.cls ? " " + s.cls : "");
-      el.id = id;
+      el.id = s.id;
 
+      var isList = text.split("\n").filter(function (l) { return l.trim(); }).every(function (l) { return /^- /.test(l); });
       var html;
-      if (text.charAt(0) === "|") {
+      if (s.cls === "timeline" && isList) {
+        html = parseTimeline(text);
+      } else if (text.charAt(0) === "|") {
         html = parseTable(text);
-      } else if (text.split("\n").filter(function (l) { return l.trim(); }).every(function (l) { return /^- /.test(l); })) {
+      } else if (isList) {
         html = parseList(text);
       } else {
         html = parseParagraphs(text);
       }
 
-      el.innerHTML = '<h2 class="section-title">' + s.title + '</h2><div class="section-content">' + html + "</div>";
+      var icon = SECTION_ICONS[s.id] || "";
+      var iconHtml = icon ? '<span class="section-icon">' + icon + '</span>' : "";
+      el.innerHTML = '<h2 class="section-title">' + iconHtml + s.title + '</h2><div class="section-content">' + html + "</div>";
       content.appendChild(el);
-      sectionEls.push({ id: id, title: s.title, el: el });
+      sectionEls.push({ id: s.id, title: s.title, el: el });
     });
+
+    // Action buttons (language + theme)
+    var actionsBar = document.createElement("div");
+    actionsBar.className = "sidebar-actions";
+
+    var langBtn = document.createElement("button");
+    langBtn.className = "action-btn";
+    langBtn.innerHTML = LANG_ICONS[currentLang] + '<span>' + (currentLang === "zh" ? "EN" : "中文") + '</span>';
+    langBtn.title = currentLang === "zh" ? "Switch to English" : "切换到中文";
+    langBtn.addEventListener("click", function () {
+      currentLang = currentLang === "zh" ? "en" : "zh";
+      localStorage.setItem("lang", currentLang);
+      document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
+      loadConfig();
+    });
+
+    themeBtnEl = document.createElement("button");
+    themeBtnEl.className = "action-btn";
+    updateThemeBtn();
+    themeBtnEl.addEventListener("click", toggleTheme);
+
+    actionsBar.appendChild(langBtn);
+    actionsBar.appendChild(themeBtnEl);
+    profile.appendChild(actionsBar);
 
     // Sidebar nav
     var divider = document.createElement("hr");
@@ -157,7 +286,7 @@
     profile.appendChild(sideNav);
 
     // Scroll spy
-    function updateNav() {
+    scrollHandler = function () {
       var offset = 80;
       var current = "";
       sectionEls.forEach(function (s) {
@@ -166,20 +295,26 @@
       sideNav.querySelectorAll("a").forEach(function (a) {
         a.classList.toggle("active", a.getAttribute("href") === "#" + current);
       });
-    }
-    window.addEventListener("scroll", updateNav, { passive: true });
-    updateNav();
+    };
+    window.addEventListener("scroll", scrollHandler, { passive: true });
+    scrollHandler();
 
     // Footer
     var footer = document.getElementById("footer");
     var year = new Date().getFullYear();
     var range = String(fm.startYear) === String(year) ? year : (fm.startYear || year) + "–" + year;
-    footer.innerHTML = '<p>© ' + range + ' <a href="' + (fm.url || "#") + '">' + (fm.handle || "") + "</a></p>";
+    footer.innerHTML = '<p>&copy; ' + range + ' <a href="' + (fm.url || "#") + '">' + (fm.handle || "") + "</a></p>";
 
     document.title = fm.handle || "Homepage";
   }
 
-  fetch("config.md").then(function (r) { return r.text(); }).then(render);
+  function loadConfig() {
+    var file = currentLang === "zh" ? "config-zh.md" : "config-en.md";
+    document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
+    fetch(file).then(function (r) { return r.text(); }).then(render);
+  }
+
+  loadConfig();
   </script>
 </body>
 </html>
