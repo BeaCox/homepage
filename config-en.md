@@ -10,8 +10,8 @@ url: https://beacox.space
 ## Links
 
 - [Blog](https://blog.beacox.space) {blog}
-- [GitHub](https://github.com/BeaCox) {github}
 - [RSS](https://blog.beacox.space/posts/index.xml) {rss}
+- [GitHub](https://github.com/BeaCox) {github}
 - [Discord](http://discordapp.com/users/1007900791954219028) {discord}
 - [Email](mailto:root@beacox.space) {email}
 
