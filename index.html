@@ -156,7 +156,19 @@
   // ===== Language =====
   var currentLang = localStorage.getItem("lang") || (navigator.language.startsWith("zh") ? "zh" : "en");
   var scrollHandler = null;
-  var cachedLinksNav = null;
+
+  // Stable DOM elements — built once, reused across language switches
+  var profileEl = null;
+  var contentEl = null;
+  var linksNav = null;
+  var langBtnEl = null;
+  var sideNavEl = null;
+
+  function updateLangBtn() {
+    if (!langBtnEl) return;
+    langBtnEl.innerHTML = LANG_ICONS[currentLang] + '<span>' + (currentLang === "zh" ? "EN" : "中文") + '</span>';
+    langBtnEl.title = currentLang === "zh" ? "Switch to English" : "切换到中文";
+  }
 
   function render(raw) {
     var fm = {};
@@ -171,7 +183,6 @@
     }
 
     var app = document.getElementById("app");
-    app.innerHTML = "";
 
     if (scrollHandler) {
       window.removeEventListener("scroll", scrollHandler);
@@ -190,46 +201,90 @@
       }
     });
 
-    // Profile
-    var profile = document.createElement("header");
-    profile.className = "profile";
-    profile.innerHTML =
-      '<img class="avatar" src="' + (fm.avatar || "") + '" alt="' + (fm.handle || "") + '">' +
-      '<h1 class="handle">' + (fm.handle || "") + "</h1>" +
-      (fm.name ? '<p class="real-name">' + fm.name + "</p>" : "") +
-      '<p class="motto">' + (fm.motto || "") + "</p>";
-    app.appendChild(profile);
+    // First render: build the stable DOM skeleton
+    if (!profileEl) {
+      app.innerHTML = "";
 
-    var content = document.createElement("div");
-    content.className = "content";
-    app.appendChild(content);
+      profileEl = document.createElement("header");
+      profileEl.className = "profile";
+      profileEl.innerHTML =
+        '<img class="avatar" src="' + (fm.avatar || "") + '" alt="' + (fm.handle || "") + '">' +
+        '<h1 class="handle">' + (fm.handle || "") + "</h1>" +
+        (fm.name ? '<p class="real-name">' + fm.name + "</p>" : "") +
+        '<p class="motto">' + (fm.motto || "") + "</p>";
+      app.appendChild(profileEl);
 
-    // Sections
+      contentEl = document.createElement("div");
+      contentEl.className = "content";
+      app.appendChild(contentEl);
+
+      // Links
+      sections.forEach(function (s) {
+        if (s.title !== "Links") return;
+        var text = s.lines.join("\n").trim();
+        if (!text) return;
+        linksNav = document.createElement("nav");
+        linksNav.className = "links";
+        var linksHtml = "";
+        text.split("\n").forEach(function (line) {
+          var lm = line.match(/^- \[(.+?)]\((.+?)\)\s*\{(\w+)}/);
+          if (lm) {
+            linksHtml += '<a href="' + lm[2] + '" target="_blank" rel="noopener">' +
+              (ICONS[lm[3]] || "") + lm[1] + "</a>";
+          }
+        });
+        linksNav.innerHTML = linksHtml;
+        profileEl.appendChild(linksNav);
+      });
+
+      // Action buttons
+      var actionsBar = document.createElement("div");
+      actionsBar.className = "sidebar-actions";
+
+      langBtnEl = document.createElement("button");
+      langBtnEl.className = "action-btn";
+      langBtnEl.addEventListener("click", function () {
+        currentLang = currentLang === "zh" ? "en" : "zh";
+        localStorage.setItem("lang", currentLang);
+        document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
+        loadConfig();
+      });
+
+      themeBtnEl = document.createElement("button");
+      themeBtnEl.className = "action-btn";
+      themeBtnEl.addEventListener("click", toggleTheme);
+
+      actionsBar.appendChild(langBtnEl);
+      actionsBar.appendChild(themeBtnEl);
+      profileEl.appendChild(actionsBar);
+
+      // Sidebar structure
+      var divider = document.createElement("hr");
+      divider.className = "sidebar-divider";
+      profileEl.appendChild(divider);
+      sideNavEl = document.createElement("nav");
+      sideNavEl.className = "sidebar-nav";
+      profileEl.appendChild(sideNavEl);
+
+      // Footer
+      var footer = document.getElementById("footer");
+      var year = new Date().getFullYear();
+      var range = String(fm.startYear) === String(year) ? year : (fm.startYear || year) + "–" + year;
+      footer.innerHTML = '<p>&copy; ' + range + ' <a href="' + (fm.url || "#") + '">' + (fm.handle || "") + "</a></p>";
+
+      document.title = fm.handle || "Homepage";
+    }
+
+    // Dynamic parts — updated on every language switch
+    updateLangBtn();
+    updateThemeBtn();
+
+    contentEl.innerHTML = "";
     var sectionEls = [];
     sections.forEach(function (s) {
       var text = s.lines.join("\n").trim();
-      if (!text) return;
+      if (!text || s.title === "Links") return;
 
-      // Links section — reuse cached DOM to avoid icon re-fetches
-      if (s.title === "Links") {
-        if (!cachedLinksNav) {
-          cachedLinksNav = document.createElement("nav");
-          cachedLinksNav.className = "links";
-          var linksHtml = "";
-          text.split("\n").forEach(function (line) {
-            var lm = line.match(/^- \[(.+?)]\((.+?)\)\s*\{(\w+)}/);
-            if (lm) {
-              linksHtml += '<a href="' + lm[2] + '" target="_blank" rel="noopener">' +
-                (ICONS[lm[3]] || "") + lm[1] + "</a>";
-            }
-          });
-          cachedLinksNav.innerHTML = linksHtml;
-        }
-        profile.appendChild(cachedLinksNav);
-        return;
-      }
-
-      // Content sections
       var el = document.createElement("section");
       el.className = "section" + (s.cls ? " " + s.cls : "");
       el.id = s.id;
@@ -249,44 +304,14 @@
       var icon = SECTION_ICONS[s.id] || "";
       var iconHtml = icon ? '<span class="section-icon">' + icon + '</span>' : "";
       el.innerHTML = '<h2 class="section-title">' + iconHtml + s.title + '</h2><div class="section-content">' + html + "</div>";
-      content.appendChild(el);
+      contentEl.appendChild(el);
       sectionEls.push({ id: s.id, title: s.title, el: el });
     });
 
-    // Action buttons (language + theme)
-    var actionsBar = document.createElement("div");
-    actionsBar.className = "sidebar-actions";
-
-    var langBtn = document.createElement("button");
-    langBtn.className = "action-btn";
-    langBtn.innerHTML = LANG_ICONS[currentLang] + '<span>' + (currentLang === "zh" ? "EN" : "中文") + '</span>';
-    langBtn.title = currentLang === "zh" ? "Switch to English" : "切换到中文";
-    langBtn.addEventListener("click", function () {
-      currentLang = currentLang === "zh" ? "en" : "zh";
-      localStorage.setItem("lang", currentLang);
-      document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
-      loadConfig();
-    });
-
-    themeBtnEl = document.createElement("button");
-    themeBtnEl.className = "action-btn";
-    updateThemeBtn();
-    themeBtnEl.addEventListener("click", toggleTheme);
-
-    actionsBar.appendChild(langBtn);
-    actionsBar.appendChild(themeBtnEl);
-    profile.appendChild(actionsBar);
-
-    // Sidebar nav
-    var divider = document.createElement("hr");
-    divider.className = "sidebar-divider";
-    profile.appendChild(divider);
-    var sideNav = document.createElement("nav");
-    sideNav.className = "sidebar-nav";
-    sideNav.innerHTML = sectionEls.map(function (s) {
+    // Update sidebar nav labels
+    sideNavEl.innerHTML = sectionEls.map(function (s) {
       return '<a href="#' + s.id + '">' + s.title + "</a>";
     }).join("");
-    profile.appendChild(sideNav);
 
     // Scroll spy
     scrollHandler = function () {
@@ -295,20 +320,12 @@
       sectionEls.forEach(function (s) {
         if (s.el.offsetTop - offset <= window.scrollY) current = s.id;
       });
-      sideNav.querySelectorAll("a").forEach(function (a) {
+      sideNavEl.querySelectorAll("a").forEach(function (a) {
         a.classList.toggle("active", a.getAttribute("href") === "#" + current);
       });
     };
     window.addEventListener("scroll", scrollHandler, { passive: true });
     scrollHandler();
-
-    // Footer
-    var footer = document.getElementById("footer");
-    var year = new Date().getFullYear();
-    var range = String(fm.startYear) === String(year) ? year : (fm.startYear || year) + "–" + year;
-    footer.innerHTML = '<p>&copy; ' + range + ' <a href="' + (fm.url || "#") + '">' + (fm.handle || "") + "</a></p>";
-
-    document.title = fm.handle || "Homepage";
   }
 
   function loadConfig() {
