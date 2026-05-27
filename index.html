@@ -156,6 +156,7 @@
   // ===== Language =====
   var currentLang = localStorage.getItem("lang") || (navigator.language.startsWith("zh") ? "zh" : "en");
   var scrollHandler = null;
+  var cachedLinksNav = null;
 
   function render(raw) {
     var fm = {};
@@ -209,20 +210,22 @@
       var text = s.lines.join("\n").trim();
       if (!text) return;
 
-      // Links section
+      // Links section — reuse cached DOM to avoid icon re-fetches
       if (s.title === "Links") {
-        var linksNav = document.createElement("nav");
-        linksNav.className = "links";
-        var linksHtml = "";
-        text.split("\n").forEach(function (line) {
-          var lm = line.match(/^- \[(.+?)]\((.+?)\)\s*\{(\w+)}/);
-          if (lm) {
-            linksHtml += '<a href="' + lm[2] + '" target="_blank" rel="noopener">' +
-              (ICONS[lm[3]] || "") + lm[1] + "</a>";
-          }
-        });
-        linksNav.innerHTML = linksHtml;
-        profile.appendChild(linksNav);
+        if (!cachedLinksNav) {
+          cachedLinksNav = document.createElement("nav");
+          cachedLinksNav.className = "links";
+          var linksHtml = "";
+          text.split("\n").forEach(function (line) {
+            var lm = line.match(/^- \[(.+?)]\((.+?)\)\s*\{(\w+)}/);
+            if (lm) {
+              linksHtml += '<a href="' + lm[2] + '" target="_blank" rel="noopener">' +
+                (ICONS[lm[3]] || "") + lm[1] + "</a>";
+            }
+          });
+          cachedLinksNav.innerHTML = linksHtml;
+        }
+        profile.appendChild(cachedLinksNav);
         return;
       }
 
