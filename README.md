@@ -1,57 +1,70 @@
 # Homepage
 
-A minimal, markdown-driven personal homepage with a two-column layout, dark/light theme, and bilingual (English/Chinese) support.
+Astro-based bilingual personal homepage with a fixed profile sidebar, generated
+section navigation, dark/light themes, and responsive layouts.
 
 **Live:** [beacox.space](https://beacox.space)
 
-## Features
+## Content
 
-- **Markdown-driven** — edit `config-zh.md` / `config-en.md` to update content, no build step needed
-- **Two-column layout** — sticky sidebar with avatar, links, and section nav; scrollable content area
-- **Dark / Light theme** — respects system preference, with manual toggle
-- **i18n** — Chinese and English, switchable at runtime
-- **Timeline, list, table, and paragraph** sections parsed from markdown
-- **Responsive** — collapses to single-column on mobile
+Most text and data lives in:
 
-## Project Structure
+- `src/i18n/locales.ts` — Chinese and English content, CVEs, and profile data
+- `src/config/sections.ts` — chapter order, IDs, titles, and renderer types
 
-```
-index.html       — single-page app (parser + renderer)
-style.css        — all styles, light/dark themes, responsive
-config-zh.md     — Chinese content (frontmatter + markdown sections)
-config-en.md     — English content
-assets/          — avatar, favicons
-vercel.json      — Vercel deployment config (static, no build)
-```
+The desktop directory, mobile navigation, and page sections are generated from
+the same section configuration.
 
-## Usage
+## Add A Chapter
 
-Serve the directory with any static file server:
+1. Add the Chinese and English title/content keys to `src/i18n/locales.ts`.
+2. Add one entry to `sectionDefinitions` in `src/config/sections.ts`.
+3. Choose a supported `kind`:
+   - `timeline` — dated entries with `date` and HTML-enabled `desc`
+   - `prose` — an array of HTML-enabled paragraphs
+   - `cves` — the shared CVE group list
+
+Reordering or removing a chapter only requires changing `sectionDefinitions`.
+Navigation numbering and active-section behavior update automatically.
+
+## Development
 
 ```bash
-# python
-python3 -m http.server
-
-# node
-npx serve .
+npm install
+npm run dev
 ```
 
-To customize, edit the `config-*.md` files. Frontmatter fields:
+Build the static site with:
 
-| Field       | Description              |
-| ----------- | ------------------------ |
-| `handle`    | Display name / username  |
-| `name`      | Real name (optional)     |
-| `avatar`    | Path to avatar image     |
-| `motto`     | Tagline below the name   |
-| `startYear` | Copyright start year     |
-| `url`       | Link on the footer name  |
+```bash
+npm run build
+```
 
-Sections are defined by `## Heading` blocks. Supported formats: timeline (`.timeline`), list, table, and paragraphs.
+The generated output is written to `dist/`.
 
 ## Deployment
 
-Deployed on [Vercel](https://vercel.com) as a static site — no build step required.
+The repository is configured for Vercel in `vercel.json`:
+
+- Framework: Astro
+- Build command: `npm run build`
+- Output directory: `dist`
+
+Import the repository into Vercel and deploy it without additional project
+settings. Local Vercel state under `.vercel/` is ignored by Git.
+
+## Project Structure
+
+```text
+src/components/        Page and content renderers
+src/config/sections.ts Chapter configuration and section types
+src/i18n/locales.ts    Bilingual content and site data
+src/assets/            Images processed by Astro
+src/pages/             Chinese and English routes
+src/styles/global.css  Theme and responsive styles
+public/                Static assets
+vercel.json            Vercel build and output settings
+```
 
 ## License
 

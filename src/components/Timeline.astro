@@ -1,0 +1,18 @@
+---
+import type { TimelineItem } from '../config/sections';
+
+interface Props {
+  items: ReadonlyArray<TimelineItem>;
+}
+
+const { items } = Astro.props;
+---
+
+<div class="timeline">
+  {items.map((item) => (
+    <div class="timeline-item">
+      <div class="timeline-date">{item.date}</div>
+      <div class="timeline-desc" set:html={item.desc} />
+    </div>
+  ))}
+</div>

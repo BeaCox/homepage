@@ -1,0 +1,30 @@
+---
+import type { CVEGroup } from '../config/sections';
+
+interface Props {
+  groups: ReadonlyArray<CVEGroup>;
+}
+
+const { groups } = Astro.props;
+---
+
+<div class="cve-list">
+  {groups.map((group) => (
+    <section class="cve-group">
+      <header class="cve-group-header">
+        <h3 class="cve-vendor">{group.vendor}</h3>
+        <span class="cve-count">{group.ids.length}</span>
+      </header>
+      <div class="cve-ids">
+        {group.ids.map((cve) => (
+          <a class="cve-link" href={cve.url} target="_blank" rel="noopener">
+            <span>{cve.id}</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 12 4M6 4h6v6" />
+            </svg>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>

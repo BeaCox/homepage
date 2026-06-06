@@ -1,7 +1,8 @@
 {
-    "buildCommand": "",
-    "outputDirectory": ".",
-    "github": {
-        "silent": true
-    }
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "github": {
+    "silent": true
+  }
 }

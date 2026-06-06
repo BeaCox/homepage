@@ -1,0 +1,27 @@
+---
+import Timeline from './Timeline.astro';
+import CVEList from './CVEList.astro';
+import type { ContentSection } from '../config/sections';
+
+interface Props {
+  section: ContentSection;
+}
+
+const { section } = Astro.props;
+---
+
+<section id={section.id} class="content-section" data-reveal data-section-id={section.id}>
+  <header class="section-header">
+    <h2>{section.title}</h2>
+  </header>
+
+  {section.kind === 'timeline' && <Timeline items={section.items} />}
+
+  {section.kind === 'prose' && (
+    <div class="about-body section-prose">
+      {section.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
+    </div>
+  )}
+
+  {section.kind === 'cves' && <CVEList groups={section.groups} />}
+</section>

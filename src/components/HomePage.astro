@@ -1,0 +1,217 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import SectionRenderer from './SectionRenderer.astro';
+import { getPageSections, type AboutSection, type ContentSection } from '../config/sections';
+import avatar from '../assets/avatar.png';
+import { profile, type Lang } from '../i18n/locales';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const isEnglish = lang === 'en';
+const year = new Date().getFullYear();
+const yearRange = String(profile.startYear) === String(year) ? String(year) : `${profile.startYear}–${year}`;
+
+const sections = getPageSections(lang);
+const aboutSection = sections.find((section): section is AboutSection => section.kind === 'about');
+const contentSections = sections.filter((section): section is ContentSection => section.kind !== 'about');
+
+if (!aboutSection) {
+  throw new Error('The section configuration must include one about section.');
+}
+
+const socialIcons: Record<string, string> = {
+  blog: '<path d="M5 3.5h11.5A2.5 2.5 0 0 1 19 6v14.5H7.5A2.5 2.5 0 0 1 5 18V3.5Z"/><path d="M8 7h7M8 11h7M8 15h4"/>',
+  github: '<path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.9c.5.1.6-.2.6-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 0 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 2.9.9.1-.7.4-1.1.7-1.4-2.2-.3-4.6-1.1-4.6-4.7 0-1 .4-1.9 1-2.5-.1-.3-.4-1.3.1-2.5 0 0 .8-.3 2.5 1a8.8 8.8 0 0 1 4.6 0c1.8-1.2 2.5-1 2.5-1 .5 1.2.2 2.2.1 2.5.7.7 1 1.5 1 2.5 0 3.6-2.4 4.4-4.6 4.7.4.3.7.9.7 1.8v2.7c0 .4.2.6.7.5A9.2 9.2 0 0 0 12 2.8Z"/>',
+  email: '<path d="M3.5 6.5h17v11h-17z"/><path d="m4 7 8 6 8-6"/>',
+  rss: '<path d="M5 5a14 14 0 0 1 14 14M5 10a9 9 0 0 1 9 9"/><circle cx="6" cy="18" r="1.2" fill="currentColor" stroke="none"/>',
+  discord: '<path d="M8 7.5a10 10 0 0 1 8 0l1.5-1a13 13 0 0 1 3 9.5 10 10 0 0 1-3.5 2l-1.3-1.7M16 17a12 12 0 0 1-8 0l-1 1a10 10 0 0 1-3.5-2A13 13 0 0 1 6.5 6.5l1.5 1"/><circle cx="8.5" cy="13" r="1"/><circle cx="15.5" cy="13" r="1"/>',
+};
+---
+
+<Layout title={t('site.title')} description={t('site.description')} lang={isEnglish ? 'en' : 'zh-CN'}>
+  <nav class="topbar" aria-label={isEnglish ? 'Primary navigation' : '主导航'}>
+    <div class="topbar-inner">
+      <a class="topbar-brand" href={isEnglish ? '/en/' : '/'}>{profile.handle}</a>
+
+      <div class="topbar-actions">
+        <a class="topbar-btn language-switch" href={isEnglish ? '/' : '/en/'} aria-label={t('lang.switchTitle')}>
+          {t('lang.switch')}
+        </a>
+        <button class="topbar-btn theme-toggle" type="button" id="theme-toggle" aria-label={t('theme.dark')}>
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3.5" />
+            <path d="M12 2v2.2M12 19.8V22M4.93 4.93l1.56 1.56M17.51 17.51l1.56 1.56M2 12h2.2M19.8 12H22M4.93 19.07l1.56-1.56M17.51 6.49l1.56-1.56" />
+          </svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 15.1A8.4 8.4 0 0 1 8.9 3.5 8.7 8.7 0 1 0 20.5 15.1Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav">
+      {sections.map((section) => (
+        <a class="mobile-nav-link" href={`#${section.id}`} data-mobile-link data-section={section.id}>
+          <span>{section.index}</span>{section.title}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section id="about" class="profile-layout" data-reveal data-section-id="about">
+      <aside class="profile-card">
+        <Image
+          class="profile-avatar"
+          src={avatar}
+          alt={profile.handle}
+          widths={[100, 104, 112]}
+          sizes="(max-width: 640px) 104px, (max-width: 820px) 112px, 100px"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="profile-copy">
+          <h1>{profile.handle}</h1>
+          <p class="profile-role">{t('hero.role')}</p>
+          <p class="profile-affiliation">{t('hero.affiliation')}</p>
+          <p class="profile-motto">{profile.motto}</p>
+        </div>
+
+        <dl class="profile-meta">
+          <div>
+            <dt>{isEnglish ? 'Research' : '研究方向'}</dt>
+            <dd>Software Security<br />AI for Security</dd>
+          </div>
+        </dl>
+
+        <ul class="author-links">
+          {profile.links.map((link) => (
+            <li>
+              <a class="author-link" href={link.url} target="_blank" rel="noopener" aria-label={link.label} title={link.label}>
+                <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons[link.icon]} />
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div class="side-directory">
+          <p>{isEnglish ? 'Contents' : '目录'}</p>
+          <nav class="side-nav" data-nav-root aria-label={isEnglish ? 'Section navigation' : '章节目录'}>
+            <span class="side-nav-indicator" data-nav-indicator aria-hidden="true"></span>
+            {sections.map((section) => (
+              <a class="side-nav-link" href={`#${section.id}`} data-nav-link data-section={section.id}>
+                <strong>{section.title}</strong>
+              </a>
+            ))}
+          </nav>
+        </div>
+      </aside>
+
+      <div class="profile-main">
+        <header class="section-intro">
+          <h2>{aboutSection.title}</h2>
+        </header>
+        <div class="about-body">
+          {aboutSection.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
+        </div>
+
+        <div class="research-focus">
+          {aboutSection.focuses.map((focus) => (
+            <article>
+              <div>
+                <h3>{focus.title}</h3>
+                <p>{focus.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="sections">
+      {contentSections.map((section) => <SectionRenderer section={section} />)}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; {yearRange} <a href={profile.url}>{profile.handle}</a></p>
+    <p class="footer-motto">{profile.motto}</p>
+  </footer>
+</Layout>
+
+<script is:inline define:vars={{ lightLabel: t('theme.light'), darkLabel: t('theme.dark') }}>
+  (() => {
+    const root = document.documentElement;
+    const themeButton = document.getElementById('theme-toggle');
+    const navLinks = [...document.querySelectorAll('[data-nav-link]')];
+    const mobileLinks = [...document.querySelectorAll('[data-mobile-link]')];
+    const sections = [...document.querySelectorAll('[data-section-id]')];
+    const navRoot = document.querySelector('[data-nav-root]');
+    const navIndicator = document.querySelector('[data-nav-indicator]');
+
+    const isDark = () => {
+      const selected = root.getAttribute('data-theme');
+      if (selected) return selected === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    };
+
+    const updateThemeButton = () => {
+      if (!themeButton) return;
+      themeButton.setAttribute('aria-label', isDark() ? lightLabel : darkLabel);
+    };
+
+    themeButton?.addEventListener('click', () => {
+      const next = isDark() ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateThemeButton();
+    });
+    updateThemeButton();
+
+    const setActive = (id) => {
+      [...navLinks, ...mobileLinks].forEach((link) => {
+        link.toggleAttribute('data-active', link.getAttribute('data-section') === id);
+      });
+      const active = navLinks.find((link) => link.getAttribute('data-section') === id);
+      if (active && navRoot && navIndicator) {
+        navIndicator.style.height = `${active.offsetHeight}px`;
+        navIndicator.style.transform = `translateY(${active.offsetTop}px)`;
+        navIndicator.style.opacity = '1';
+      }
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.setAttribute('data-visible', '');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('[data-reveal]').forEach((element) => revealObserver.observe(element));
+    document.documentElement.classList.add('motion-ready');
+
+    const spyObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible[0]) setActive(visible[0].target.getAttribute('data-section-id'));
+    }, { rootMargin: '-18% 0px -60% 0px', threshold: 0 });
+
+    sections.forEach((section) => spyObserver.observe(section));
+
+    const initial = window.location.hash.slice(1);
+    setActive(initial || 'about');
+
+    window.addEventListener('resize', () => setActive(
+      document.querySelector('[data-nav-link][data-active]')?.getAttribute('data-section') || 'about'
+    ));
+  })();
+</script>
