@@ -1,13 +1,12 @@
 ---
-import Timeline from './Timeline.astro';
-import CVEList from './CVEList.astro';
-import type { ContentSection } from '../config/sections';
+import type { PageSection } from '../config/sections';
 
 interface Props {
-  section: ContentSection;
+  section: PageSection;
 }
 
 const { section } = Astro.props;
+const Content = section.Content;
 ---
 
 <section id={section.id} class="content-section" data-reveal data-section-id={section.id}>
@@ -15,13 +14,7 @@ const { section } = Astro.props;
     <h2>{section.title}</h2>
   </header>
 
-  {section.kind === 'timeline' && <Timeline items={section.items} />}
-
-  {section.kind === 'prose' && (
-    <div class="about-body section-prose">
-      {section.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
-    </div>
-  )}
-
-  {section.kind === 'cves' && <CVEList groups={section.groups} />}
+  <div class:list={['markdown-content', `markdown-content--${section.kind}`]}>
+    <Content />
+  </div>
 </section>

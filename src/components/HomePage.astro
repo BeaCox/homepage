@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SectionRenderer from './SectionRenderer.astro';
-import { getPageSections, type AboutSection, type ContentSection } from '../config/sections';
+import { getPageSections } from '../config/sections';
 import avatar from '../assets/avatar.png';
 import { profile, type Lang } from '../i18n/locales';
 import { useTranslations } from '../i18n/utils';
@@ -17,13 +17,15 @@ const isEnglish = lang === 'en';
 const year = new Date().getFullYear();
 const yearRange = String(profile.startYear) === String(year) ? String(year) : `${profile.startYear}–${year}`;
 
-const sections = getPageSections(lang);
-const aboutSection = sections.find((section): section is AboutSection => section.kind === 'about');
-const contentSections = sections.filter((section): section is ContentSection => section.kind !== 'about');
+const sections = await getPageSections(lang);
+const aboutSection = sections.find((section) => section.kind === 'about');
+const contentSections = sections.filter((section) => section !== aboutSection);
 
 if (!aboutSection) {
-  throw new Error('The section configuration must include one about section.');
+  throw new Error(`The ${lang} content directory must include one section with kind: about.`);
 }
+
+const AboutContent = aboutSection.Content;
 
 const socialIcons: Record<string, string> = {
   blog: '<path d="M5 3.5h11.5A2.5 2.5 0 0 1 19 6v14.5H7.5A2.5 2.5 0 0 1 5 18V3.5Z"/><path d="M8 7h7M8 11h7M8 15h4"/>',
@@ -117,19 +119,8 @@ const socialIcons: Record<string, string> = {
         <header class="section-intro">
           <h2>{aboutSection.title}</h2>
         </header>
-        <div class="about-body">
-          {aboutSection.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
-        </div>
-
-        <div class="research-focus">
-          {aboutSection.focuses.map((focus) => (
-            <article>
-              <div>
-                <h3>{focus.title}</h3>
-                <p>{focus.desc}</p>
-              </div>
-            </article>
-          ))}
+        <div class="markdown-content markdown-content--about">
+          <AboutContent />
         </div>
       </div>
     </section>
