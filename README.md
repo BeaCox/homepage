@@ -18,28 +18,81 @@ generated from these files.
 
 ## Add A Chapter
 
-Create a Markdown file with the same filename in each language directory:
+Create a Markdown file with the same filename in both language directories. For
+example:
+
+```text
+src/content/zh/projects.md
+src/content/en/projects.md
+```
+
+Each file starts with frontmatter:
 
 ```md
 ---
 title: Projects
 order: 60
 kind: prose
+draft: false
 ---
 
 Write normal **Markdown** here.
 ```
 
 The filename becomes the section anchor, for example `projects.md` becomes
-`#projects`. Change `order` to reorder chapters, or set `draft: true` to hide
-one temporarily.
+`#projects`.
 
-Supported layouts:
+Frontmatter fields:
 
-- `about` — the profile introduction; use blockquotes for focus cards
-- `prose` — normal Markdown, suitable for arbitrary new chapters
-- `timeline` — write each date as `###`, followed by its description
-- `cves` — write each vendor as `###`, followed by a Markdown link list
+- `title` — text displayed in the section heading and navigation
+- `order` — numeric chapter order; it does not need to be consecutive
+- `kind` — section layout; defaults to `prose`
+- `draft` — optional; set to `true` to hide the chapter
+
+Use the same filename and `order` for corresponding Chinese and English
+chapters so language switching keeps the page structure consistent.
+
+## Section Layouts
+
+### Prose
+
+Use `kind: prose` for ordinary Markdown content. Headings, paragraphs, links,
+lists, emphasis, and blockquotes are supported.
+
+### Timeline
+
+Use `kind: timeline`. Each level-three heading is rendered as a date, and the
+following paragraph is rendered as its description:
+
+```md
+### 2025–2027
+
+Shanghai Jiao Tong University<br>
+**M.Eng.** in Cyberspace Security
+```
+
+### CVEs
+
+Use `kind: cves`. Each level-three heading is a vendor, followed by a Markdown
+list of CVE links:
+
+```md
+### D-Link
+
+- [CVE-2024-7357](https://www.cve.org/CVERecord?id=CVE-2024-7357)
+- [CVE-2025-4841](https://www.cve.org/CVERecord?id=CVE-2025-4841)
+```
+
+### About
+
+Each language must contain exactly one `kind: about` chapter. Normal paragraphs
+form the introduction, while blockquotes are displayed as research focus cards:
+
+```md
+> ## Software Security
+>
+> Program analysis and vulnerability research.
+```
 
 ## Development
 
