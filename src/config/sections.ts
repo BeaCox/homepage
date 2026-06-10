@@ -2,7 +2,15 @@ import { getCollection, render } from 'astro:content';
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { Lang } from '../i18n/locales';
 
-export type SectionKind = 'about' | 'prose' | 'timeline' | 'cves';
+export type SectionKind = 'about' | 'prose' | 'timeline' | 'cves' | 'projects';
+
+export interface ProjectItem {
+  repo: string;
+  logo?: string;
+  description: string;
+  language?: string;
+  topics: string[];
+}
 
 export interface PageSection {
   id: string;
@@ -11,6 +19,7 @@ export interface PageSection {
   index: string;
   kind: SectionKind;
   Content: AstroComponentFactory;
+  projects?: ProjectItem[];
 }
 
 export async function getPageSections(lang: Lang): Promise<PageSection[]> {
@@ -27,6 +36,7 @@ export async function getPageSections(lang: Lang): Promise<PageSection[]> {
       order: entry.data.order,
       kind: entry.data.kind,
       Content,
+      projects: entry.data.projects,
     };
   }));
 

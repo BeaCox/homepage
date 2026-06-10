@@ -1,5 +1,6 @@
 ---
 import type { PageSection } from '../config/sections';
+import ProjectCards from './ProjectCards.astro';
 
 interface Props {
   section: PageSection;
@@ -14,7 +15,11 @@ const Content = section.Content;
     <h2>{section.title}</h2>
   </header>
 
-  <div class:list={['markdown-content', `markdown-content--${section.kind}`]}>
-    <Content />
-  </div>
+  {section.kind === 'projects' && section.projects ? (
+    <ProjectCards projects={section.projects} />
+  ) : (
+    <div class:list={['markdown-content', `markdown-content--${section.kind}`]}>
+      <Content />
+    </div>
+  )}
 </section>
