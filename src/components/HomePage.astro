@@ -131,7 +131,10 @@ const socialIcons: Record<string, string> = {
   </main>
 
   <footer class="site-footer">
-    <p>&copy; {yearRange} <a href={profile.url}>{profile.handle}</a></p>
+    <p class="footer-copyright">&copy; {yearRange} <a href={profile.url}>{profile.handle}</a></p>
+    <a class="footer-source" href={profile.sourceUrl} target="_blank" rel="noopener">
+      {t('footer.source')}
+    </a>
     <p class="footer-motto">{profile.motto}</p>
   </footer>
 </Layout>
