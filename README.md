@@ -113,11 +113,13 @@ projects:
 ---
 ```
 
-Project logos live under `public/`, so `/projects/pastepilot.png` maps to
-`public/projects/pastepilot.png`. Cards link to GitHub and refresh public repo
-metadata in the browser when available. GitHub requests are lazy-loaded near the
-project cards, capped with a short timeout, and cached in `localStorage` so slow
-or blocked API access does not delay the page.
+Project logos live under `src/assets/projects/` and use their filename in
+frontmatter, so `pastepilot.png` maps to
+`src/assets/projects/pastepilot.png`. Astro optimizes these images at build
+time. Cards link to GitHub and refresh public repo metadata in the browser when
+available. GitHub requests are lazy-loaded near the project cards, capped with a
+short timeout, and cached in `localStorage` so slow or blocked API access does
+not delay the page.
 
 ## Performance Notes
 

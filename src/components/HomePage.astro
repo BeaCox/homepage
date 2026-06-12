@@ -143,6 +143,8 @@ const socialIcons: Record<string, string> = {
   (() => {
     const root = document.documentElement;
     const themeButton = document.getElementById('theme-toggle');
+    const themeColor = document.getElementById('theme-color');
+    const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
     const navLinks = [...document.querySelectorAll('[data-nav-link]')];
     const mobileLinks = [...document.querySelectorAll('[data-mobile-link]')];
     const sections = [...document.querySelectorAll('[data-section-id]')];
@@ -157,12 +159,13 @@ const socialIcons: Record<string, string> = {
     const isDark = () => {
       const selected = root.getAttribute('data-theme');
       if (selected) return selected === 'dark';
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return colorScheme.matches;
     };
 
     const updateThemeButton = () => {
       if (!themeButton) return;
       themeButton.setAttribute('aria-label', isDark() ? lightLabel : darkLabel);
+      themeColor?.setAttribute('content', isDark() ? '#10101a' : '#f7f7fc');
     };
 
     themeButton?.addEventListener('click', () => {
@@ -172,6 +175,9 @@ const socialIcons: Record<string, string> = {
       updateThemeButton();
     });
     updateThemeButton();
+    colorScheme.addEventListener('change', () => {
+      if (!root.hasAttribute('data-theme')) updateThemeButton();
+    });
 
     const setActive = (id, behavior = getScrollBehavior()) => {
       [...navLinks, ...mobileLinks].forEach((link) => {

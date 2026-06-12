@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdfdff"/>
+      <stop offset="1" stop-color="#eeeefa"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#746ee0" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#746ee0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#746ee0"/>
+      <stop offset="1" stop-color="#4c479f"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <circle cx="1080" cy="90" r="220" fill="#746ee0" opacity="0.05"/>
+  <circle cx="1125" cy="575" r="310" fill="#5b56b6" opacity="0.045"/>
+
+  <g transform="translate(84 80)">
+    <rect width="1032" height="470" rx="44" fill="#ffffff" fill-opacity="0.74" stroke="#6f6c96" stroke-opacity="0.2"/>
+    <rect x="48" y="48" width="92" height="92" rx="28" fill="url(#accent)"/>
+    <text x="94" y="111" fill="#ffffff" font-family="Georgia, serif" font-size="43" font-weight="700" text-anchor="middle">B</text>
+
+    <text x="48" y="240" fill="#18182a" font-family="Georgia, serif" font-size="88" font-weight="600" letter-spacing="-3">BeaCox</text>
+    <text x="52" y="305" fill="#5b56b6" font-family="Arial, sans-serif" font-size="31" font-weight="700">SOFTWARE SECURITY</text>
+    <text x="52" y="350" fill="#5b56b6" font-family="Arial, sans-serif" font-size="31" font-weight="700">AI FOR SECURITY</text>
+
+    <line x1="52" y1="395" x2="980" y2="395" stroke="#6f6c96" stroke-opacity="0.2"/>
+    <text x="52" y="438" fill="#4d4d66" font-family="Arial, sans-serif" font-size="24">Program Analysis  /  Vulnerability Research  /  CTF</text>
+    <text x="980" y="438" fill="#7e7e98" font-family="Arial, sans-serif" font-size="22" text-anchor="end">beacox.space</text>
+  </g>
+</svg>

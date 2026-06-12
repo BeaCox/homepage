@@ -1,7 +1,7 @@
 export const ui = {
   zh: {
-    'site.title': 'BeaCox',
-    'site.description': 'BeaCox 的个人主页',
+    'site.title': 'BeaCox | 软件安全与 AI for Security',
+    'site.description': 'BeaCox 的个人主页，关注软件安全、程序分析、漏洞研究与 AI for Security。',
     'theme.light': '浅色',
     'theme.dark': '深色',
     'lang.switch': 'EN',
@@ -11,8 +11,8 @@ export const ui = {
     'hero.affiliation': '上海交通大学',
   },
   en: {
-    'site.title': 'BeaCox',
-    'site.description': "BeaCox's Homepage",
+    'site.title': 'BeaCox | Software Security & AI for Security',
+    'site.description': 'The personal homepage of BeaCox, focused on software security, program analysis, vulnerability research, and AI for security.',
     'theme.light': 'Light',
     'theme.dark': 'Dark',
     'lang.switch': '中文',
@@ -34,7 +34,7 @@ export const profile = {
     { label: 'GitHub', url: 'https://github.com/BeaCox', icon: 'github' },
     { label: 'Email', url: 'mailto:root@beacox.space', icon: 'email' },
     { label: 'RSS', url: 'https://blog.beacox.space/posts/index.xml', icon: 'rss' },
-    { label: 'Discord', url: 'http://discordapp.com/users/1007900791954219028', icon: 'discord' },
+    { label: 'Discord', url: 'https://discord.com/users/1007900791954219028', icon: 'discord' },
   ],
 };
 

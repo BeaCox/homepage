@@ -1,5 +1,8 @@
 ---
+import { getImage } from 'astro:assets';
 import '../styles/global.css';
+import avatar from '../assets/avatar.png';
+import { profile } from '../i18n/locales';
 
 interface Props {
   title: string;
@@ -8,6 +11,49 @@ interface Props {
 }
 
 const { title, description, lang } = Astro.props;
+const isEnglish = lang.startsWith('en');
+const site = Astro.site ?? new URL(profile.url);
+const canonicalUrl = new URL(isEnglish ? '/en/' : '/', site);
+const chineseUrl = new URL('/', site);
+const englishUrl = new URL('/en/', site);
+const socialImageUrl = new URL('/og-image.png', site);
+const optimizedProfileImage = await getImage({
+  src: avatar,
+  width: 233,
+  height: 233,
+  format: 'webp',
+});
+const profileImageUrl = new URL(optimizedProfileImage.src, site);
+const ogLocale = isEnglish ? 'en_US' : 'zh_CN';
+const alternateOgLocale = isEnglish ? 'zh_CN' : 'en_US';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.handle,
+  alternateName: profile.handle,
+  url: canonicalUrl.href,
+  image: profileImageUrl.href,
+  description,
+  jobTitle: isEnglish
+    ? "Master's Candidate in Cyberspace Security"
+    : '网络空间安全硕士研究生',
+  affiliation: {
+    '@type': 'CollegeOrUniversity',
+    name: isEnglish ? 'Shanghai Jiao Tong University' : '上海交通大学',
+    sameAs: 'https://www.sjtu.edu.cn/',
+  },
+  knowsAbout: [
+    'Software Security',
+    'AI for Security',
+    'Program Analysis',
+    'Vulnerability Research',
+  ],
+  sameAs: profile.links
+    .filter((link) => ['blog', 'github', 'discord'].includes(link.icon))
+    .map((link) => link.url),
+};
+const structuredDataJson = JSON.stringify(structuredData).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -17,15 +63,69 @@ const { title, description, lang } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f7f8fa" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content={profile.handle} />
+    <meta name="theme-color" content="#f7f7fc" id="theme-color" />
+
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="zh-CN" href={chineseUrl} />
+    <link rel="alternate" hreflang="en" href={englishUrl} />
+    <link rel="alternate" hreflang="x-default" href={chineseUrl} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${profile.handle} Blog RSS`}
+      href="https://blog.beacox.space/posts/index.xml"
+    />
+
+    <meta property="og:type" content="profile" />
+    <meta property="profile:username" content={profile.handle} />
+    <meta property="og:site_name" content={profile.handle} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={alternateOgLocale} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:secure_url" content={socialImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content={isEnglish
+        ? 'BeaCox, software security and AI for security'
+        : 'BeaCox，软件安全与 AI for Security'}
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta
+      name="twitter:image:alt"
+      content={isEnglish
+        ? 'BeaCox, software security and AI for security'
+        : 'BeaCox，软件安全与 AI for Security'}
+    />
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <script type="application/ld+json" set:html={structuredDataJson} />
     <script is:inline>
       (function() {
         var t = localStorage.getItem('theme');
+        var dark = t === 'dark' || (
+          t !== 'light' &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches
+        );
         if (t === 'dark' || t === 'light') {
           document.documentElement.setAttribute('data-theme', t);
         }
+        document.getElementById('theme-color').setAttribute(
+          'content',
+          dark ? '#10101a' : '#f7f7fc'
+        );
       })();
     </script>
   </head>
