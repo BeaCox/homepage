@@ -6,6 +6,7 @@ const projectItemSchema = z.object({
   logo: z.string().optional(),
   description: z.string(),
   language: z.string().optional(),
+  stars: z.number().optional(),
   topics: z.array(z.string()).default([]),
 });
 

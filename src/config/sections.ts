@@ -9,6 +9,7 @@ export interface ProjectItem {
   logo?: string;
   description: string;
   language?: string;
+  stars?: number;
   topics: string[];
 }
 

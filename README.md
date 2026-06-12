@@ -13,7 +13,7 @@ dark/light themes, and responsive layouts.
 - Content-driven sections from `src/content/{zh,en}`
 - Sticky profile sidebar with generated desktop and mobile navigation
 - Markdown layouts for about, prose, timeline, CVEs, and projects
-- Client-side GitHub metadata refresh for project stars, language, and topics
+- Lazy GitHub metadata refresh for project stars, language, and topics
 - Dark/light theme toggle with local preference persistence
 - Footer source link configured from shared profile data
 
@@ -115,7 +115,19 @@ projects:
 
 Project logos live under `public/`, so `/projects/pastepilot.png` maps to
 `public/projects/pastepilot.png`. Cards link to GitHub and refresh public repo
-metadata in the browser when available.
+metadata in the browser when available. GitHub requests are lazy-loaded near the
+project cards, capped with a short timeout, and cached in `localStorage` so slow
+or blocked API access does not delay the page.
+
+## Performance Notes
+
+- The site uses system font stacks, avoiding render-blocking external font
+  requests.
+- GitHub API metadata is treated as progressive enhancement. Static frontmatter
+  renders first; stars, language, and topics update only if the API responds
+  quickly enough.
+- Vercel cache headers keep hashed Astro assets and static project images cached
+  for long-lived repeat visits.
 
 ## Development
 
