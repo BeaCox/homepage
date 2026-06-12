@@ -148,6 +148,7 @@ const socialIcons: Record<string, string> = {
     const sections = [...document.querySelectorAll('[data-section-id]')];
     const navRoot = document.querySelector('[data-nav-root]');
     const navIndicator = document.querySelector('[data-nav-indicator]');
+    let cancelInitialAlignment = () => {};
 
     const getScrollBehavior = () => (
       window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
@@ -205,7 +206,25 @@ const socialIcons: Record<string, string> = {
     };
 
     let spyFrame = 0;
+    let navigationTargetId = '';
+    let navigationEndTimer = 0;
+
+    const finishNavigation = () => {
+      navigationTargetId = '';
+      navigationEndTimer = 0;
+      setActive(getCurrentSectionId() || 'about');
+    };
+
+    const scheduleNavigationEnd = () => {
+      window.clearTimeout(navigationEndTimer);
+      navigationEndTimer = window.setTimeout(finishNavigation, 180);
+    };
+
     const updateActiveFromScroll = () => {
+      if (navigationTargetId) {
+        scheduleNavigationEnd();
+        return;
+      }
       if (spyFrame) return;
       spyFrame = requestAnimationFrame(() => {
         spyFrame = 0;
@@ -213,14 +232,28 @@ const socialIcons: Record<string, string> = {
       });
     };
 
+    const getDocumentTop = (element) => {
+      let top = 0;
+      let current = element;
+
+      while (current) {
+        top += current.offsetTop;
+        current = current.offsetParent;
+      }
+
+      return top;
+    };
+
     const scrollToSection = (id, behavior = getScrollBehavior()) => {
       const target = document.getElementById(id);
       if (!target) return false;
 
       const scrollPadding = Number.parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
-      const top = target.getBoundingClientRect().top + window.scrollY - scrollPadding;
+      const top = getDocumentTop(target) - scrollPadding;
+      navigationTargetId = behavior === 'smooth' ? id : '';
       window.scrollTo({ top: Math.max(0, top), behavior });
       setActive(id, behavior);
+      if (navigationTargetId) scheduleNavigationEnd();
       return true;
     };
 
@@ -240,6 +273,7 @@ const socialIcons: Record<string, string> = {
       if (!id || !document.getElementById(id)) return;
 
       event.preventDefault();
+      cancelInitialAlignment();
       history.pushState(null, '', `#${id}`);
       scrollToSection(id);
     });
@@ -260,12 +294,25 @@ const socialIcons: Record<string, string> = {
 
     const initial = window.location.hash.slice(1);
     if (initial && scrollToSection(initial, 'auto')) {
-      const alignInitialHash = () => scrollToSection(initial, 'auto');
+      let alignmentActive = true;
+      const alignInitialHash = () => {
+        if (alignmentActive) scrollToSection(initial, 'auto');
+      };
+      const alignmentTimers = [
+        window.setTimeout(alignInitialHash, 140),
+        window.setTimeout(alignInitialHash, 420),
+      ];
+      const handleLoad = () => alignInitialHash();
+
+      cancelInitialAlignment = () => {
+        alignmentActive = false;
+        alignmentTimers.forEach((timer) => window.clearTimeout(timer));
+        window.removeEventListener('load', handleLoad);
+      };
+
       requestAnimationFrame(() => requestAnimationFrame(alignInitialHash));
-      window.setTimeout(alignInitialHash, 140);
-      window.setTimeout(alignInitialHash, 420);
       if (document.readyState !== 'complete') {
-        window.addEventListener('load', alignInitialHash, { once: true });
+        window.addEventListener('load', handleLoad, { once: true });
       }
     } else {
       setActive(getCurrentSectionId() || 'about');
