@@ -9,6 +9,7 @@ projects:
     language: Swift
     topics:
       - clipboard
+      - developer-tools
       - macos-app
-      - swift
+      - menubar-app
 ---
