@@ -11,6 +11,10 @@ kind: cves
 - [CVE-2025-4842](https://www.cve.org/CVERecord?id=CVE-2025-4842)
 - [CVE-2025-4843](https://www.cve.org/CVERecord?id=CVE-2025-4843)
 
+### pupnp
+
+- [CVE-2026-55862](https://www.cve.org/CVERecord?id=CVE-2026-55862)
+
 ### Tenda
 
 - [CVE-2024-7581](https://www.cve.org/CVERecord?id=CVE-2024-7581)
