@@ -699,18 +699,20 @@ html[data-theme='dark'] .theme-icon--moon {
 }
 
 .project-grid {
-  max-width: 52rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  columns: 22rem;
+  column-gap: 1rem;
 }
 
 .project-card {
-  padding: 1.35rem;
+  width: 100%;
+  margin: 0 0 1rem;
+  padding: clamp(1.15rem, 3cqw, 1.55rem);
   border: 1px solid var(--border);
   border-radius: 1.25rem;
   background: color-mix(in srgb, var(--surface-solid) 64%, transparent);
+  break-inside: avoid;
   display: flex;
+  align-items: flex-start;
   gap: 1.1rem;
   text-decoration: none;
   color: inherit;
@@ -735,6 +737,9 @@ html[data-theme='dark'] .theme-icon--moon {
 
 .project-body {
   min-width: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .project-name {
@@ -808,10 +813,6 @@ html[data-theme='dark'] .theme-icon--moon {
   color: var(--text-soft);
   font-size: 0.86rem;
   line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .project-topics {
@@ -1056,7 +1057,7 @@ html[data-theme='dark'] .theme-icon--moon {
   }
 
   .project-grid {
-    grid-template-columns: 1fr;
+    columns: 1;
   }
 
   .markdown-content--timeline {
