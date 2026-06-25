@@ -13,7 +13,9 @@ kind: cves
 
 ### pupnp
 
-- [CVE-2026-55862](https://www.cve.org/CVERecord?id=CVE-2026-55862)
+- [CVE-2026-55862](https://github.com/pupnp/pupnp/security/advisories/GHSA-25cx-xv8x-j247)
+- [CVE-2026-57486](https://github.com/pupnp/pupnp/security/advisories/GHSA-q54q-vx78-v9rq)
+- [CVE-2026-57488](https://github.com/pupnp/pupnp/security/advisories/GHSA-g6c2-x4r9-352g)
 
 ### Tenda
 
