@@ -26,6 +26,7 @@ if (!aboutSection) {
 }
 
 const AboutContent = aboutSection.Content;
+const isHttpUrl = (url: string) => /^https?:\/\//i.test(url);
 
 const socialIcons: Record<string, string> = {
   blog: '<path d="M5 3.5h11.5A2.5 2.5 0 0 1 19 6v14.5H7.5A2.5 2.5 0 0 1 5 18V3.5Z"/><path d="M8 7h7M8 11h7M8 15h4"/>',
@@ -93,13 +94,24 @@ const socialIcons: Record<string, string> = {
         </dl>
 
         <ul class="author-links">
-          {profile.links.map((link) => (
-            <li>
-              <a class="author-link" href={link.url} target="_blank" rel="noopener" aria-label={link.label} title={link.label}>
-                <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons[link.icon]} />
-              </a>
-            </li>
-          ))}
+          {profile.links.map((link) => {
+            const opensInNewTab = isHttpUrl(link.url);
+
+            return (
+              <li>
+                <a
+                  class="author-link"
+                  href={link.url}
+                  target={opensInNewTab ? '_blank' : undefined}
+                  rel={opensInNewTab ? 'noopener noreferrer' : undefined}
+                  aria-label={link.label}
+                  title={link.label}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons[link.icon]} />
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         <div class="side-directory">
@@ -132,7 +144,7 @@ const socialIcons: Record<string, string> = {
 
   <footer class="site-footer">
     <p class="footer-copyright">&copy; {yearRange} <a href={profile.url}>{profile.handle}</a></p>
-    <a class="footer-source" href={profile.sourceUrl} target="_blank" rel="noopener">
+    <a class="footer-source" href={profile.sourceUrl} target="_blank" rel="noopener noreferrer">
       {t('footer.source')}
     </a>
     <p class="footer-motto">{profile.motto}</p>
