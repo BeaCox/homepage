@@ -11,6 +11,11 @@ kind: cves
 - [CVE-2025-4842](https://www.cve.org/CVERecord?id=CVE-2025-4842)
 - [CVE-2025-4843](https://www.cve.org/CVERecord?id=CVE-2025-4843)
 
+### Deskflow
+
+- [CVE-2026-63409](https://github.com/deskflow/deskflow/security/advisories/GHSA-gmvh-3c73-m5gg)
+- [GHSA-jf7g-qghg-p54x](https://github.com/deskflow/deskflow/security/advisories/GHSA-jf7g-qghg-p54x)
+
 ### pupnp
 
 - [CVE-2026-55862](https://github.com/pupnp/pupnp/security/advisories/GHSA-25cx-xv8x-j247)
