@@ -8,10 +8,7 @@ kind: about
 
 偶尔跟着 [Ph0t1n1a](https://ctftime.org/team/55197/) 战队打 **CTF**，纯菜 pwn 手。
 
-> ## Software Security
->
-> 程序分析、漏洞挖掘与软件安全。
+## 研究方向
 
-> ## AI for Security
->
-> 面向安全分析的智能辅助方法。
+- **软件安全** 程序分析、漏洞挖掘与软件安全。
+- **AI for Security** 面向安全分析的智能辅助方法。

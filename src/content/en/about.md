@@ -8,10 +8,7 @@ I'm a master's student at **Shanghai Jiao Tong University**, working on **softwa
 
 I dabble in **CTF** as a pwn player with [Ph0t1n1a](https://ctftime.org/team/55197/).
 
-> ## Software Security
->
-> Program analysis and vulnerability research.
+## Research interests
 
-> ## AI for Security
->
-> Learning-assisted approaches to security analysis.
+- **Software Security** Program analysis and vulnerability research.
+- **AI for Security** Learning-assisted approaches to security analysis.

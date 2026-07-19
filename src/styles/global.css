@@ -306,29 +306,6 @@ html[data-theme='dark'] .theme-icon--moon {
   font-style: italic;
 }
 
-.profile-meta {
-  margin: 1.05rem 0 0;
-}
-
-.profile-meta div {
-  display: grid;
-  grid-template-columns: 5rem 1fr;
-  gap: 0.75rem;
-}
-
-.profile-meta dt {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.profile-meta dd {
-  margin: 0;
-  color: var(--text-soft);
-  font-size: 0.84rem;
-  text-align: left;
-}
-
 .side-directory {
   margin-top: 0.75rem;
   text-align: left;
@@ -531,40 +508,41 @@ html[data-theme='dark'] .theme-icon--moon {
 
 .markdown-content--about {
   margin-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 0.85rem;
 }
 
-.markdown-content--about > p {
-  grid-column: 1 / -1;
-}
-
-.markdown-content--about > blockquote {
-  min-height: 7.25rem;
-  margin: 1.4rem 0 0;
-  padding: 1.1rem 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: 1.25rem;
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  display: grid;
-  place-content: center;
-  text-align: center;
-}
-
-.markdown-content--about > blockquote h2 {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 1.3rem;
-  line-height: 1.25;
-}
-
-.markdown-content--about > blockquote p {
-  margin: 0.45rem 0 0;
+.markdown-content--about > h2 {
+  margin: 2.3rem 0 0;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.markdown-content--about > ul {
+  margin: 0.65rem 0 0;
+  padding: 0;
+  border-bottom: 1px solid var(--border);
+  list-style: none;
+}
+
+.markdown-content--about > ul li {
+  margin: 0;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.94rem;
   line-height: 1.7;
+}
+
+.markdown-content--about > ul strong {
+  display: inline-block;
+  min-width: 9.5rem;
+  margin-right: 0.75rem;
+  color: var(--text);
+  font-size: 0.98rem;
 }
 
 .sections {
@@ -1043,11 +1021,6 @@ html[data-theme='dark'] .theme-icon--moon {
     margin-inline: auto;
   }
 
-  .profile-meta {
-    width: min(100%, 30rem);
-    margin-inline: auto;
-  }
-
   .profile-main {
     grid-column: 1;
     padding: 0;
@@ -1091,9 +1064,14 @@ html[data-theme='dark'] .theme-icon--moon {
     font-size: 2.4rem;
   }
 
-  .markdown-content--about,
   .markdown-content--cves ul {
     grid-template-columns: 1fr;
+  }
+
+  .markdown-content--about > ul strong {
+    display: block;
+    min-width: 0;
+    margin: 0 0 0.1rem;
   }
 
   .project-grid {
