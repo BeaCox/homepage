@@ -437,10 +437,38 @@ html[data-theme='dark'] .theme-icon--moon {
   transform: translateY(-2px);
 }
 
-.author-link--resume {
+.resume-download {
+  width: max-content;
+  min-height: 2.35rem;
+  margin: 0.65rem auto 0;
+  padding: 0 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-soft);
+  background: color-mix(in srgb, var(--surface-solid) 48%, transparent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  transition: color 220ms ease, border-color 220ms ease, transform 320ms var(--ease);
+}
+
+.resume-download span:last-child {
+  color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: -0.02em;
+  transition: color 220ms ease, transform 320ms var(--ease);
+}
+
+.resume-download:hover {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  transform: translateY(-2px);
+}
+
+.resume-download:hover span:last-child {
+  color: var(--accent);
+  transform: translateY(0.12rem);
 }
 
 .profile-main {
