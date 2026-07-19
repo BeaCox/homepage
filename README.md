@@ -74,7 +74,7 @@ Use `kind: timeline`. Each level-three heading is treated as the date, and the
 following paragraph is treated as the entry body:
 
 ```md
-### 2025–2027
+### 2025–2028
 
 Shanghai Jiao Tong University  
 **M.Eng.** in Cyberspace Security

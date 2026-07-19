@@ -4,7 +4,7 @@ order: 20
 kind: timeline
 ---
 
-### 2025–2027
+### 2025–2028
 
 Shanghai Jiao Tong University  
 **M.Eng.** in Cyberspace Security
