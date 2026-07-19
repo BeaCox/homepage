@@ -10,7 +10,6 @@ export const ui = {
     'hero.role': '网络空间安全硕士研究生',
     'hero.affiliation': '上海交通大学',
     'resume.download': '下载简历',
-    'resume.meta': 'PDF · 1 页',
   },
   en: {
     'site.title': 'BeaCox | Software Security & AI for Security',
@@ -23,7 +22,6 @@ export const ui = {
     'hero.role': "Master's Candidate in Cyberspace Security",
     'hero.affiliation': 'Shanghai Jiao Tong University',
     'resume.download': 'Download résumé',
-    'resume.meta': 'PDF · Chinese · 1 page',
   },
 } as const;
 

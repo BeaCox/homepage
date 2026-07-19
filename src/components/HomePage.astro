@@ -112,21 +112,18 @@ const socialIcons: Record<string, string> = {
               </li>
             );
           })}
+          <li>
+            <a
+              class="author-link author-link--resume"
+              href="/resume.pdf"
+              download="BeaCox-Resume.pdf"
+              aria-label={t('resume.download')}
+              title={t('resume.download')}
+            >
+              <span aria-hidden="true">CV</span>
+            </a>
+          </li>
         </ul>
-
-        <a
-          class="resume-download"
-          href="/resume.pdf"
-          download="BeaCox-Resume.pdf"
-          aria-label={`${t('resume.download')} (${t('resume.meta')})`}
-        >
-          <span class="resume-download-format" aria-hidden="true">PDF</span>
-          <span class="resume-download-copy">
-            <strong>{t('resume.download')}</strong>
-            <small>{t('resume.meta')}</small>
-          </span>
-          <span class="resume-download-arrow" aria-hidden="true">↓</span>
-        </a>
 
         <div class="side-directory">
           <p>{isEnglish ? 'Contents' : '目录'}</p>

@@ -437,84 +437,10 @@ html[data-theme='dark'] .theme-icon--moon {
   transform: translateY(-2px);
 }
 
-.resume-download {
-  min-height: 3.6rem;
-  margin-top: 0.85rem;
-  padding: 0.65rem 0.8rem;
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: 1rem;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.7rem;
-  color: var(--text);
-  background:
-    linear-gradient(135deg, var(--accent-soft), transparent 72%),
-    color-mix(in srgb, var(--surface-solid) 54%, transparent);
-  text-align: left;
-  box-shadow: 0 14px 34px -30px color-mix(in srgb, var(--accent) 70%, transparent);
-  transition:
-    color 220ms ease,
-    border-color 220ms ease,
-    transform 320ms var(--ease),
-    box-shadow 320ms var(--ease);
-}
-
-.resume-download-format {
-  width: 2.15rem;
-  height: 2.15rem;
-  border-radius: 0.7rem;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  background: linear-gradient(135deg, var(--accent-bright), var(--accent));
+.author-link--resume {
   font-family: var(--mono);
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  box-shadow: 0 10px 22px -14px color-mix(in srgb, var(--accent) 88%, transparent);
-}
-
-.resume-download-copy {
-  min-width: 0;
-  display: grid;
-  line-height: 1.25;
-}
-
-.resume-download-copy strong {
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.resume-download-copy small {
-  margin-top: 0.22rem;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 0.59rem;
-  white-space: nowrap;
-}
-
-.resume-download-arrow {
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: 1rem;
-  transition: transform 320ms var(--ease);
-}
-
-.resume-download:hover {
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
-  transform: translateY(-2px);
-  box-shadow: 0 20px 42px -30px color-mix(in srgb, var(--accent) 85%, transparent);
-}
-
-.resume-download:hover .resume-download-arrow {
-  transform: translateY(0.18rem);
-}
-
-.resume-download:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+  font-size: 0.68rem;
+  letter-spacing: -0.02em;
 }
 
 .profile-main {
