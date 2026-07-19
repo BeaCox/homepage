@@ -396,8 +396,14 @@ html[data-theme='dark'] .theme-icon--moon {
   color: #fff;
 }
 
-.author-links {
+.author-link-groups {
   margin: 0.65rem 0 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.author-links {
+  margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
@@ -440,7 +446,7 @@ html[data-theme='dark'] .theme-icon--moon {
 .resume-download {
   width: max-content;
   min-height: 2.35rem;
-  margin: 0.65rem auto 0;
+  margin: 0.45rem auto 0;
   padding: 0 0.9rem;
   border: 1px solid var(--border);
   border-radius: 999px;

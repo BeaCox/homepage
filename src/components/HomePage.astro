@@ -35,6 +35,11 @@ const socialIcons: Record<string, string> = {
   rss: '<path d="M5 5a14 14 0 0 1 14 14M5 10a9 9 0 0 1 9 9"/><circle cx="6" cy="18" r="1.2" fill="currentColor" stroke="none"/>',
   discord: '<path d="M8 7.5a10 10 0 0 1 8 0l1.5-1a13 13 0 0 1 3 9.5 10 10 0 0 1-3.5 2l-1.3-1.7M16 17a12 12 0 0 1-8 0l-1 1a10 10 0 0 1-3.5-2A13 13 0 0 1 6.5 6.5l1.5 1"/><circle cx="8.5" cy="13" r="1"/><circle cx="15.5" cy="13" r="1"/>',
 };
+
+const linkGroups = [
+  profile.links.filter((link) => ['blog', 'rss'].includes(link.icon)),
+  profile.links.filter((link) => ['github', 'email', 'discord'].includes(link.icon)),
+];
 ---
 
 <Layout title={t('site.title')} description={t('site.description')} lang={isEnglish ? 'en' : 'zh-CN'}>
@@ -93,26 +98,30 @@ const socialIcons: Record<string, string> = {
           </div>
         </dl>
 
-        <ul class="author-links">
-          {profile.links.map((link) => {
-            const opensInNewTab = isHttpUrl(link.url);
+        <div class="author-link-groups">
+          {linkGroups.map((links) => (
+            <ul class="author-links">
+              {links.map((link) => {
+                const opensInNewTab = isHttpUrl(link.url);
 
-            return (
-              <li>
-                <a
-                  class="author-link"
-                  href={link.url}
-                  target={opensInNewTab ? '_blank' : undefined}
-                  rel={opensInNewTab ? 'noopener noreferrer' : undefined}
-                  aria-label={link.label}
-                  title={link.label}
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons[link.icon]} />
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+                return (
+                  <li>
+                    <a
+                      class="author-link"
+                      href={link.url}
+                      target={opensInNewTab ? '_blank' : undefined}
+                      rel={opensInNewTab ? 'noopener noreferrer' : undefined}
+                      aria-label={link.label}
+                      title={link.label}
+                    >
+                      <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons[link.icon]} />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          ))}
+        </div>
 
         <a
           class="resume-download"
