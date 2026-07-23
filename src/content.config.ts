@@ -10,11 +10,17 @@ const projectItemSchema = z.object({
   topics: z.array(z.string()).default([]),
 });
 
+const subsectionSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+});
+
 const sectionSchema = z.object({
   title: z.string(),
   order: z.number(),
   kind: z.enum(['about', 'prose', 'timeline', 'cves', 'projects']).default('prose'),
   draft: z.boolean().default(false),
+  subsections: z.array(subsectionSchema).optional(),
   projects: z.array(projectItemSchema).optional(),
 });
 

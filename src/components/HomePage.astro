@@ -65,9 +65,23 @@ const linkGroups = [
 
     <div class="mobile-nav">
       {sections.map((section) => (
-        <a class="mobile-nav-link" href={`#${section.id}`} data-mobile-link data-section={section.id}>
-          {section.title}
-        </a>
+        <>
+          <a class="mobile-nav-link" href={`#${section.id}`} data-mobile-link data-section={section.id}>
+            {section.title}
+          </a>
+          {section.subsections?.map((subsection) => (
+            <a
+              class="mobile-nav-sublink"
+              href={`#${subsection.id}`}
+              data-mobile-subsection
+              data-parent-section={section.id}
+              data-subsection={subsection.id}
+              tabindex="-1"
+            >
+              {subsection.title}
+            </a>
+          ))}
+        </>
       ))}
     </div>
   </nav>
@@ -131,9 +145,35 @@ const linkGroups = [
           <nav class="side-nav" data-nav-root aria-label={isEnglish ? 'Section navigation' : '章节目录'}>
             <span class="side-nav-indicator" data-nav-indicator aria-hidden="true"></span>
             {sections.map((section) => (
-              <a class="side-nav-link" href={`#${section.id}`} data-nav-link data-section={section.id}>
-                <strong>{section.title}</strong>
-              </a>
+              <div class="side-nav-item" data-nav-item data-section={section.id}>
+                <a
+                  class="side-nav-link"
+                  href={`#${section.id}`}
+                  data-nav-link
+                  data-section={section.id}
+                  aria-expanded={section.subsections?.length ? 'false' : undefined}
+                >
+                  <strong>{section.title}</strong>
+                </a>
+                {section.subsections?.length ? (
+                  <div class="side-nav-submenu" data-nav-submenu aria-hidden="true">
+                    <div class="side-nav-submenu-inner">
+                      {section.subsections.map((subsection) => (
+                        <a
+                          class="side-nav-sublink"
+                          href={`#${subsection.id}`}
+                          data-nav-subsection
+                          data-parent-section={section.id}
+                          data-subsection={subsection.id}
+                          tabindex="-1"
+                        >
+                          {subsection.title}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
             ))}
           </nav>
         </div>
@@ -170,10 +210,13 @@ const linkGroups = [
     const themeColor = document.getElementById('theme-color');
     const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
     const navLinks = [...document.querySelectorAll('[data-nav-link]')];
+    const subsectionLinks = [...document.querySelectorAll('[data-nav-subsection]')];
     const mobileLinks = [...document.querySelectorAll('[data-mobile-link]')];
+    const mobileSubsectionLinks = [...document.querySelectorAll('[data-mobile-subsection]')];
     const sections = [...document.querySelectorAll('[data-section-id]')];
     const navRoot = document.querySelector('[data-nav-root]');
     const navIndicator = document.querySelector('[data-nav-indicator]');
+    const profileCard = document.querySelector('.profile-card');
     let cancelInitialAlignment = () => {};
 
     const getScrollBehavior = () => (
@@ -203,26 +246,112 @@ const linkGroups = [
       if (!root.hasAttribute('data-theme')) updateThemeButton();
     });
 
-    const setActive = (id, behavior = getScrollBehavior()) => {
+    const getCurrentSubsectionId = (sectionId) => {
+      const links = subsectionLinks.filter(
+        (link) => link.getAttribute('data-parent-section') === sectionId
+      );
+      if (!links.length) return '';
+
+      const marker = window.innerHeight * 0.28;
+      let current = links[0];
+
+      links.forEach((link) => {
+        const target = document.getElementById(link.getAttribute('data-subsection') || '');
+        if (target?.getBoundingClientRect().top <= marker) current = link;
+      });
+
+      return current?.getAttribute('data-subsection') || '';
+    };
+
+    const positionNavIndicator = () => {
+      const active = navLinks.find((link) => link.hasAttribute('data-active'));
+      if (!active || !navRoot || !navIndicator) return;
+
+      const activeRect = active.getBoundingClientRect();
+      const navRect = navRoot.getBoundingClientRect();
+      navIndicator.style.height = `${activeRect.height}px`;
+      navIndicator.style.transform = `translateY(${activeRect.top - navRect.top}px)`;
+      navIndicator.style.opacity = '1';
+
+      const activeSubsection = subsectionLinks.find((link) => link.hasAttribute('data-active'));
+      const visibleTarget = activeSubsection || active;
+      const visibleTargetRect = visibleTarget.getBoundingClientRect();
+      if (profileCard) {
+        const cardRect = profileCard.getBoundingClientRect();
+        const visibleTop = cardRect.top + 12;
+        const visibleBottom = cardRect.bottom - 12;
+        let scrollDelta = 0;
+
+        if (visibleTargetRect.top < visibleTop) {
+          scrollDelta = visibleTargetRect.top - visibleTop;
+        } else if (visibleTargetRect.bottom > visibleBottom) {
+          scrollDelta = visibleTargetRect.bottom - visibleBottom;
+        }
+
+        if (scrollDelta) {
+          profileCard.scrollTo({
+            top: profileCard.scrollTop + scrollDelta,
+            behavior: 'auto',
+          });
+        }
+      }
+    };
+
+    const setActive = (id, behavior = getScrollBehavior(), subsectionId = getCurrentSubsectionId(id)) => {
       [...navLinks, ...mobileLinks].forEach((link) => {
         link.toggleAttribute('data-active', link.getAttribute('data-section') === id);
       });
+      document.querySelectorAll('[data-nav-item]').forEach((item) => {
+        const expanded = item.getAttribute('data-section') === id && Boolean(
+          item.querySelector('[data-nav-submenu]')
+        );
+        item.toggleAttribute('data-expanded', expanded);
+
+        const parentLink = item.querySelector('[data-nav-link]');
+        const submenu = item.querySelector('[data-nav-submenu]');
+        if (parentLink?.hasAttribute('aria-expanded')) {
+          parentLink.setAttribute('aria-expanded', String(expanded));
+        }
+        submenu?.setAttribute('aria-hidden', String(!expanded));
+        item.querySelectorAll('[data-nav-subsection]').forEach((link) => {
+          link.setAttribute('tabindex', expanded ? '0' : '-1');
+        });
+      });
+      subsectionLinks.forEach((link) => {
+        link.toggleAttribute(
+          'data-active',
+          link.getAttribute('data-parent-section') === id &&
+            link.getAttribute('data-subsection') === subsectionId
+        );
+      });
+      mobileSubsectionLinks.forEach((link) => {
+        const expanded = link.getAttribute('data-parent-section') === id;
+        link.toggleAttribute('data-expanded', expanded);
+        link.toggleAttribute(
+          'data-active',
+          expanded && link.getAttribute('data-subsection') === subsectionId
+        );
+        link.setAttribute('tabindex', expanded ? '0' : '-1');
+      });
       const activeMobile = mobileLinks.find((link) => link.getAttribute('data-section') === id);
-      if (activeMobile?.offsetParent) {
-        const mobileNav = activeMobile.closest('.mobile-nav');
-        const left = activeMobile.offsetLeft - ((mobileNav?.clientWidth || 0) - activeMobile.offsetWidth) / 2;
+      const activeMobileSubsection = mobileSubsectionLinks.find(
+        (link) => link.hasAttribute('data-active')
+      );
+      const mobileTarget = activeMobileSubsection?.offsetParent ? activeMobileSubsection : activeMobile;
+      if (mobileTarget?.offsetParent) {
+        const mobileNav = mobileTarget.closest('.mobile-nav');
+        const left = mobileTarget.offsetLeft - ((mobileNav?.clientWidth || 0) - mobileTarget.offsetWidth) / 2;
         mobileNav?.scrollTo({
           left: Math.max(0, left),
           behavior,
         });
       }
-      const active = navLinks.find((link) => link.getAttribute('data-section') === id);
-      if (active && navRoot && navIndicator) {
-        navIndicator.style.height = `${active.offsetHeight}px`;
-        navIndicator.style.transform = `translateY(${active.offsetTop}px)`;
-        navIndicator.style.opacity = '1';
-      }
+      positionNavIndicator();
     };
+
+    if ('ResizeObserver' in window && navRoot) {
+      new ResizeObserver(positionNavIndicator).observe(navRoot);
+    }
 
     const getCurrentSectionId = () => {
       const marker = window.innerHeight * 0.28;
@@ -262,27 +391,19 @@ const linkGroups = [
       });
     };
 
-    const getDocumentTop = (element) => {
-      let top = 0;
-      let current = element;
+    const getDocumentTop = (element) => (
+      element.getBoundingClientRect().top + window.scrollY
+    );
 
-      while (current) {
-        top += current.offsetTop;
-        current = current.offsetParent;
-      }
-
-      return top;
-    };
-
-    const scrollToSection = (id, behavior = getScrollBehavior()) => {
+    const scrollToSection = (id, behavior = getScrollBehavior(), parentId = id) => {
       const target = document.getElementById(id);
       if (!target) return false;
 
       const scrollPadding = Number.parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
       const top = getDocumentTop(target) - scrollPadding;
-      navigationTargetId = behavior === 'smooth' ? id : '';
+      navigationTargetId = behavior === 'smooth' ? parentId : '';
       window.scrollTo({ top: Math.max(0, top), behavior });
-      setActive(id, behavior);
+      setActive(parentId, behavior, id === parentId ? getCurrentSubsectionId(parentId) : id);
       if (navigationTargetId) scheduleNavigationEnd();
       return true;
     };
@@ -297,15 +418,19 @@ const linkGroups = [
       ) return;
 
       const link = event.target instanceof Element
-        ? event.target.closest('[data-nav-link], [data-mobile-link]')
+        ? event.target.closest(
+          '[data-nav-link], [data-nav-subsection], [data-mobile-link], [data-mobile-subsection]'
+        )
         : null;
       const id = link?.getAttribute('href')?.slice(1);
       if (!id || !document.getElementById(id)) return;
 
+      const parentId = link.getAttribute('data-parent-section') || id;
+
       event.preventDefault();
       cancelInitialAlignment();
       history.pushState(null, '', `#${id}`);
-      scrollToSection(id);
+      scrollToSection(id, getScrollBehavior(), parentId);
     });
 
     const revealObserver = new IntersectionObserver((entries) => {
@@ -323,10 +448,13 @@ const linkGroups = [
     window.addEventListener('scroll', updateActiveFromScroll, { passive: true });
 
     const initial = window.location.hash.slice(1);
-    if (initial && scrollToSection(initial, 'auto')) {
+    const initialParent = subsectionLinks.find(
+      (link) => link.getAttribute('data-subsection') === initial
+    )?.getAttribute('data-parent-section') || initial;
+    if (initial && scrollToSection(initial, 'auto', initialParent)) {
       let alignmentActive = true;
       const alignInitialHash = () => {
-        if (alignmentActive) scrollToSection(initial, 'auto');
+        if (alignmentActive) scrollToSection(initial, 'auto', initialParent);
       };
       const alignmentTimers = [
         window.setTimeout(alignInitialHash, 140),

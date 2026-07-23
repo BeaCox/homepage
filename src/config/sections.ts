@@ -13,6 +13,11 @@ export interface ProjectItem {
   topics: string[];
 }
 
+export interface SectionSubsection {
+  id: string;
+  title: string;
+}
+
 export interface PageSection {
   id: string;
   title: string;
@@ -20,6 +25,7 @@ export interface PageSection {
   index: string;
   kind: SectionKind;
   Content: AstroComponentFactory;
+  subsections?: SectionSubsection[];
   projects?: ProjectItem[];
 }
 
@@ -37,6 +43,7 @@ export async function getPageSections(lang: Lang): Promise<PageSection[]> {
       order: entry.data.order,
       kind: entry.data.kind,
       Content,
+      subsections: entry.data.subsections,
       projects: entry.data.projects,
     };
   }));

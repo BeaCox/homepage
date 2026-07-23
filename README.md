@@ -43,6 +43,7 @@ Frontmatter fields:
 - `order` — numeric section order; it does not need to be consecutive
 - `kind` — section layout; one of `about`, `prose`, `timeline`, `cves`, `projects`
 - `draft` — optional; set to `true` to hide the section
+- `subsections` — optional nested navigation items with stable `id` and localized `title`
 - `projects` — required only for `kind: projects`
 
 Use the same filename and similar `order` values in both language directories.
@@ -82,11 +83,23 @@ Shanghai Jiao Tong University
 
 ### CVEs
 
-Use `kind: cves`. Each level-three heading is a vendor, followed by a Markdown
-list of CVE links:
+Use `kind: cves`. Declare category links in `subsections`, then use an HTML
+level-three heading with the matching stable ID for each category. Each
+level-four heading is a vendor or project followed by a Markdown list of links:
 
 ```md
-### D-Link
+---
+title: CVEs
+order: 50
+kind: cves
+subsections:
+  - id: cves-iot
+    title: IoT
+---
+
+<h3 id="cves-iot">IoT</h3>
+
+#### D-Link
 
 - [CVE-2024-7357](https://www.cve.org/CVERecord?id=CVE-2024-7357)
 - [CVE-2025-4841](https://www.cve.org/CVERecord?id=CVE-2025-4841)
