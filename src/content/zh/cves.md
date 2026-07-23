@@ -16,11 +16,20 @@ kind: cves
 - [CVE-2026-63409](https://github.com/deskflow/deskflow/security/advisories/GHSA-gmvh-3c73-m5gg)
 - [GHSA-jf7g-qghg-p54x](https://github.com/deskflow/deskflow/security/advisories/GHSA-jf7g-qghg-p54x)
 
+### libyang
+
+- [GHSA-3cpx-8f5j-mqm9](https://github.com/CESNET/libyang/security/advisories/GHSA-3cpx-8f5j-mqm9)
+- [GHSA-x4rw-8p9g-8jmp](https://github.com/CESNET/libyang/security/advisories/GHSA-x4rw-8p9g-8jmp)
+
 ### pupnp
 
 - [CVE-2026-55862](https://github.com/pupnp/pupnp/security/advisories/GHSA-25cx-xv8x-j247)
 - [CVE-2026-57486](https://github.com/pupnp/pupnp/security/advisories/GHSA-q54q-vx78-v9rq)
 - [CVE-2026-57488](https://github.com/pupnp/pupnp/security/advisories/GHSA-g6c2-x4r9-352g)
+
+### Tabby
+
+- [GHSA-59p9-8gwf-v9v7](https://github.com/Eugeny/tabby/security/advisories/GHSA-59p9-8gwf-v9v7)
 
 ### Tenda
 
