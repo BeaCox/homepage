@@ -14,7 +14,7 @@ subsections:
 #### Deskflow
 
 - [CVE-2026-63409](https://github.com/deskflow/deskflow/security/advisories/GHSA-gmvh-3c73-m5gg)
-- [GHSA-jf7g-qghg-p54x](https://github.com/deskflow/deskflow/security/advisories/GHSA-jf7g-qghg-p54x)
+- [CVE-2026-65976](https://github.com/deskflow/deskflow/security/advisories/GHSA-jf7g-qghg-p54x)
 
 #### libyang
 
