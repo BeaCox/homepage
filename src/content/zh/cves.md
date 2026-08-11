@@ -29,7 +29,7 @@ subsections:
 
 #### Tabby
 
-- [GHSA-59p9-8gwf-v9v7](https://github.com/Eugeny/tabby/security/advisories/GHSA-59p9-8gwf-v9v7)
+- [CVE-2026-72903](https://github.com/Eugeny/tabby/security/advisories/GHSA-59p9-8gwf-v9v7)
 
 <h3 id="cves-iot">IoT</h3>
 
