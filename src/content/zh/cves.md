@@ -27,6 +27,10 @@ subsections:
 - [CVE-2026-57486](https://github.com/pupnp/pupnp/security/advisories/GHSA-q54q-vx78-v9rq)
 - [CVE-2026-57488](https://github.com/pupnp/pupnp/security/advisories/GHSA-g6c2-x4r9-352g)
 
+#### RomM
+
+- [GHSA-h2hj-wr57-c939](https://github.com/rommapp/romm/security/advisories/GHSA-h2hj-wr57-c939)
+
 #### Tabby
 
 - [CVE-2026-72903](https://github.com/Eugeny/tabby/security/advisories/GHSA-59p9-8gwf-v9v7)
