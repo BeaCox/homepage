@@ -3,6 +3,15 @@ title: Projects
 order: 45
 kind: projects
 projects:
+  - repo: BeaCox/CleanerX
+    logo: cleanerx.png
+    description: A local-only desktop app to review and safely clean storage created by Codex, Claude Code, OpenCode, and pi.
+    language: Rust
+    topics:
+      - claude-code
+      - codex
+      - coding-agents
+      - data-cleanup
   - repo: BeaCox/gdb-mcp
     logo: gdb-mcp.svg
     description: A production-ready MCP server for multi-session GDB and gdbserver debugging, exposing programmable debugging workflows through GDB/MI.
