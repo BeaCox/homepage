@@ -796,13 +796,15 @@ html[data-theme='dark'] .theme-icon--moon {
 }
 
 .project-grid {
-  columns: 22rem;
-  column-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+  align-items: start;
+  gap: 1rem;
 }
 
 .project-card {
   width: 100%;
-  margin: 0 0 1rem;
+  margin: 0;
   padding: clamp(1.15rem, 3cqw, 1.55rem);
   border: 1px solid var(--border);
   border-radius: 1.25rem;
@@ -1188,7 +1190,7 @@ html[data-theme='dark'] .theme-icon--moon {
   }
 
   .project-grid {
-    columns: 1;
+    grid-template-columns: 1fr;
   }
 
   .markdown-content--timeline {
