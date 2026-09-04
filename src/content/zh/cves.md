@@ -16,6 +16,10 @@ subsections:
 - [CVE-2026-63409](https://github.com/deskflow/deskflow/security/advisories/GHSA-gmvh-3c73-m5gg)
 - [CVE-2026-65976](https://github.com/deskflow/deskflow/security/advisories/GHSA-jf7g-qghg-p54x)
 
+#### Hickory DNS
+
+- [GHSA-5r56-v84h-c3w5](https://github.com/hickory-dns/hickory-dns/security/advisories/GHSA-5r56-v84h-c3w5)
+
 #### libyang
 
 - [GHSA-3cpx-8f5j-mqm9](https://github.com/CESNET/libyang/security/advisories/GHSA-3cpx-8f5j-mqm9)
