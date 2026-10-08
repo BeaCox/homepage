@@ -7,7 +7,7 @@ kind: timeline
 ### 2026.08–Present
 
 Agent Development Intern\
-[上海飞宇极光科技有限公司](https://m.qcc.com/firm/a0dccdfbeee820833528ce7350fbd8f5.html)
+[Feysh Technology](https://feysh.cn/en)
 
 ### 2025.06–2025.09
 
