@@ -17,8 +17,8 @@ subsections:
 
 #### Deskflow
 
-- [CVE-2026-63409](https://github.com/deskflow/deskflow/security/advisories/GHSA-gmvh-3c73-m5gg)
-- [CVE-2026-65976](https://github.com/deskflow/deskflow/security/advisories/GHSA-jf7g-qghg-p54x)
+- [CVE-2026-63409](https://www.cve.org/CVERecord?id=CVE-2026-63409)
+- [CVE-2026-65976](https://www.cve.org/CVERecord?id=CVE-2026-65976)
 
 #### Hickory DNS
 
@@ -31,9 +31,9 @@ subsections:
 
 #### pupnp
 
-- [CVE-2026-55862](https://github.com/pupnp/pupnp/security/advisories/GHSA-25cx-xv8x-j247)
-- [CVE-2026-57486](https://github.com/pupnp/pupnp/security/advisories/GHSA-q54q-vx78-v9rq)
-- [CVE-2026-57488](https://github.com/pupnp/pupnp/security/advisories/GHSA-g6c2-x4r9-352g)
+- [CVE-2026-55862](https://www.cve.org/CVERecord?id=CVE-2026-55862)
+- [CVE-2026-57486](https://www.cve.org/CVERecord?id=CVE-2026-57486)
+- [CVE-2026-57488](https://www.cve.org/CVERecord?id=CVE-2026-57488)
 
 #### RomM
 
@@ -41,7 +41,7 @@ subsections:
 
 #### Tabby
 
-- [CVE-2026-72903](https://github.com/Eugeny/tabby/security/advisories/GHSA-59p9-8gwf-v9v7)
+- [CVE-2026-72903](https://www.cve.org/CVERecord?id=CVE-2026-72903)
 
 <h3 id="cves-iot">IoT</h3>
 
