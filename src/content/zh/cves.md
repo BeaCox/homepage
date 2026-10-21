@@ -11,6 +11,10 @@ subsections:
 
 <h3 id="cves-open-source">开源项目</h3>
 
+#### Apache bRPC
+
+- [CVE-2026-61902](https://seclists.org/oss-sec/2026/q4/274)
+
 #### Deskflow
 
 - [CVE-2026-63409](https://github.com/deskflow/deskflow/security/advisories/GHSA-gmvh-3c73-m5gg)
