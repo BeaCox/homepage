@@ -13,7 +13,7 @@ subsections:
 
 #### Apache bRPC
 
-- [CVE-2026-61902](https://seclists.org/oss-sec/2026/q4/274)
+- [CVE-2026-61902](https://www.cve.org/CVERecord?id=CVE-2026-61902)
 
 #### Deskflow
 
