@@ -1,5 +1,6 @@
 ---
 import { Image, type ImageMetadata } from 'astro:assets';
+import { formatStars, langColors } from '../config/project-meta';
 import type { ProjectItem } from '../config/sections';
 
 interface Props {
@@ -12,28 +13,9 @@ const projectLogos = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true },
 );
 
-const formatStars = (n?: number) => typeof n === 'number'
-  ? (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n))
-  : '–';
-
 const getProjectLogo = (logo?: string) => logo
   ? projectLogos[`../assets/projects/${logo}`]?.default
   : undefined;
-
-const langColors: Record<string, string> = {
-  Swift: '#F05138',
-  TypeScript: '#3178C6',
-  JavaScript: '#F7DF1E',
-  Python: '#3572A5',
-  Go: '#00ADD8',
-  Rust: '#DEA584',
-  C: '#555555',
-  'C++': '#F34B7D',
-  Java: '#B07219',
-  Shell: '#89E051',
-  Kotlin: '#A97BFF',
-};
-
 ---
 
 <div class="project-grid">
@@ -48,24 +30,25 @@ const langColors: Record<string, string> = {
       rel="noopener noreferrer"
       data-repo={p.repo}
     >
-      {logo && (
-        <Image
-          class="project-logo"
-          src={logo}
-          alt={p.repo.split('/')[1]}
-          width="48"
-          height="48"
-          loading="lazy"
-          format="webp"
-        />
-      )}
+      <div class="project-art">
+        {logo && (
+          <Image
+            class="project-logo"
+            src={logo}
+            alt=""
+            width="160"
+            height="160"
+            loading="lazy"
+            format="webp"
+          />
+        )}
+        <svg class="project-arrow" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17L17 7M17 7H8M17 7v9" />
+        </svg>
+      </div>
       <div class="project-body">
-        <h3 class="project-name">
-          {p.repo.split('/')[1]}
-          <svg class="project-arrow" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 17L17 7M17 7H8M17 7v9" />
-          </svg>
-        </h3>
+        <h3 class="project-name">{p.repo.split('/')[1]}</h3>
+        <p class="project-desc">{p.description}</p>
         <div class="project-meta">
           <span class="project-stars">
             <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -73,137 +56,74 @@ const langColors: Record<string, string> = {
             </svg>
             <span data-stars>{formatStars(p.stars)}</span>
           </span>
-          {p.language && (
-            <span class="project-lang">
-              <span
-                class="project-lang-dot"
-                data-lang-dot
-                style={`background:${langColors[p.language] || '#888'}`}
-              />
-              <span data-lang-name>{p.language}</span>
-            </span>
-          )}
+          <span class="project-lang" hidden={!p.language}>
+            <span
+              class="project-lang-dot"
+              data-lang-dot
+              style={`background:${langColors[p.language ?? ''] || '#888'}`}
+            />
+            <span data-lang-name>{p.language}</span>
+          </span>
         </div>
-        <p class="project-desc">{p.description}</p>
-        {p.topics.length > 0 && (
-          <div class="project-topics" data-topics>
-            {p.topics.slice(0, 4).map((t) => (
-              <span class="project-topic">{t}</span>
-            ))}
-          </div>
-        )}
+        <div class="project-topics" data-topics hidden={!p.topics.length}>
+          {p.topics.slice(0, 4).map((t) => (
+            <span class="project-topic">{t}</span>
+          ))}
+        </div>
       </div>
     </a>
     );
   })}
 </div>
 
-<script is:inline>
-  (() => {
-    const colors = {
-      Swift:'#F05138',TypeScript:'#3178C6',JavaScript:'#F7DF1E',
-      Python:'#3572A5',Go:'#00ADD8',Rust:'#DEA584',C:'#555555',
-      'C++':'#F34B7D',Java:'#B07219',Shell:'#89E051',Kotlin:'#A97BFF'
-    };
-    const CACHE_TTL = 12 * 60 * 60 * 1000;
-    const FETCH_TIMEOUT = 2000;
+<script>
+  import { formatStars, langColors } from '../config/project-meta';
 
-    function fmt(n) { return n >= 1000 ? (n/1000).toFixed(1)+'k' : String(n); }
-    function cacheKey(repo) { return 'github-repo-meta:' + repo; }
+  interface Metadata {
+    stars: number;
+    language: string | null;
+    topics: string[];
+  }
 
-    function updateCard(card, d) {
-      var s = card.querySelector('[data-stars]');
-      if (s && typeof d.stargazers_count === 'number') s.textContent = fmt(d.stargazers_count);
+  async function refreshCards() {
+    try {
+      const response = await fetch('/api/projects.json', { signal: AbortSignal.timeout(6500) });
+      if (!response.ok) return;
+      const metadata: Record<string, Metadata> = await response.json();
+      for (const card of document.querySelectorAll<HTMLElement>('.project-card[data-repo]')) {
+        const data = metadata[card.dataset.repo!];
+        if (!data) continue;
 
-      if (d.language) {
-        var ln = card.querySelector('[data-lang-name]');
-        var ld = card.querySelector('[data-lang-dot]');
-        if (ln) ln.textContent = d.language;
-        if (ld) ld.style.background = colors[d.language] || '#888';
+        card.querySelector('[data-stars]')!.textContent = formatStars(data.stars);
+        const language = card.querySelector<HTMLElement>('.project-lang')!;
+        language.hidden = !data.language;
+        if (data.language) {
+          language.querySelector('[data-lang-name]')!.textContent = data.language;
+          language.querySelector<HTMLElement>('[data-lang-dot]')!.style.background = langColors[data.language] ?? '#888';
+        }
+        const topics = card.querySelector<HTMLElement>('[data-topics]')!;
+        topics.hidden = !data.topics.length;
+        topics.replaceChildren(...data.topics.map((name) => {
+          const tag = document.createElement('span');
+          tag.className = 'project-topic';
+          tag.textContent = name;
+          return tag;
+        }));
       }
+    } catch {
+      // The Markdown metadata is already in the page.
+    }
+  }
 
-      var tp = card.querySelector('[data-topics]');
-      if (tp && d.topics && d.topics.length) {
-        tp.textContent = '';
-        d.topics.slice(0, 4).forEach(function(t) {
-          var item = document.createElement('span');
-          item.className = 'project-topic';
-          item.textContent = t;
-          tp.appendChild(item);
-        });
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        observer.disconnect();
+        void refreshCards();
       }
-    }
-
-    function readCache(repo, card) {
-      try {
-        var cached = JSON.parse(localStorage.getItem(cacheKey(repo)) || 'null');
-        if (!cached || !cached.data) return false;
-        updateCard(card, cached.data);
-        return Date.now() - cached.time < CACHE_TTL;
-      } catch (_) {
-        return false;
-      }
-    }
-
-    function writeCache(repo, data) {
-      try {
-        localStorage.setItem(cacheKey(repo), JSON.stringify({ time: Date.now(), data: data }));
-      } catch (_) {}
-    }
-
-    async function fetchRepo(card) {
-      var repo = card.dataset.repo;
-      if (!repo || readCache(repo, card)) return;
-
-      var controller = window.AbortController ? new AbortController() : null;
-      var timer = controller ? setTimeout(function() { controller.abort(); }, FETCH_TIMEOUT) : null;
-      try {
-        var res = await fetch(
-          'https://api.github.com/repos/' + repo,
-          {
-            cache: 'force-cache',
-            headers: { Accept: 'application/vnd.github.v3+json' },
-            signal: controller ? controller.signal : undefined
-          }
-        );
-        if (!res.ok) throw 0;
-        var d = await res.json();
-        var data = {
-          stargazers_count: d.stargazers_count,
-          language: d.language,
-          topics: d.topics
-        };
-        updateCard(card, data);
-        writeCache(repo, data);
-      } catch (_) {}
-      finally {
-        if (timer) clearTimeout(timer);
-      }
-    }
-
-    function idle(fn) {
-      if ('requestIdleCallback' in window) requestIdleCallback(fn, { timeout: 1200 });
-      else setTimeout(fn, 300);
-    }
-
-    function start(card) {
-      if (card.dataset.githubMetaLoaded) return;
-      card.dataset.githubMetaLoaded = 'true';
-      idle(function() { fetchRepo(card); });
-    }
-
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.project-card[data-repo]'));
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (!entry.isIntersecting) return;
-          observer.unobserve(entry.target);
-          start(entry.target);
-        });
-      }, { rootMargin: '320px' });
-      cards.forEach(function(card) { observer.observe(card); });
-    } else {
-      idle(function() { cards.forEach(start); });
-    }
-  })();
+    }, { rootMargin: '320px' });
+    document.querySelectorAll('.project-grid').forEach((grid) => observer.observe(grid));
+  } else {
+    void refreshCards();
+  }
 </script>

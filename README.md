@@ -1,8 +1,8 @@
 # Homepage
 
 Astro-powered bilingual personal homepage for [BeaCox](https://beacox.space).
-Content is written in Markdown, then rendered into a fixed profile sidebar,
-generated section navigation, project cards, timeline sections, CVE lists,
+Content is written in Markdown, then rendered into a profile introduction,
+sticky chapter navigation, project cards, timeline sections, CVE lists,
 dark/light themes, and responsive layouts.
 
 **Live:** [beacox.space](https://beacox.space)
@@ -11,9 +11,9 @@ dark/light themes, and responsive layouts.
 
 - Chinese and English routes: `/` and `/en/`
 - Content-driven sections from `src/content/{zh,en}`
-- Sticky profile sidebar with generated desktop and mobile navigation
+- Profile introduction with research interests and responsive chapter navigation
 - Markdown layouts for about, prose, timeline, CVEs, and projects
-- Lazy GitHub metadata refresh for project stars, language, and topics
+- Shared CDN cache for GitHub stars, languages, and topics
 - Dark/light theme toggle with local preference persistence
 - Footer source link configured from shared profile data
 
@@ -55,14 +55,8 @@ Shared profile and interface text lives in `src/i18n/locales.ts`.
 
 ### About
 
-Each language must contain exactly one `kind: about` section. Paragraphs form
-the intro, and blockquotes render as compact focus cards:
-
-```md
-> ## Software Security
->
-> Program analysis and vulnerability research.
-```
+Each language must contain exactly one `kind: about` section. Its Markdown contains the introduction
+and a short line of research interests displayed alongside the avatar.
 
 ### Prose
 
@@ -83,23 +77,11 @@ Shanghai Jiao Tong University
 
 ### CVEs
 
-Use `kind: cves`. Declare category links in `subsections`, then use an HTML
-level-three heading with the matching stable ID for each category. Each
-level-four heading is a vendor or project followed by a Markdown list of links:
+Use `kind: cves`. Each level-three heading names a project or vendor and is
+followed by a list of disclosure links.
 
 ```md
----
-title: CVEs
-order: 50
-kind: cves
-subsections:
-  - id: cves-iot
-    title: IoT
----
-
-<h3 id="cves-iot">IoT</h3>
-
-#### D-Link
+### D-Link
 
 - [CVE-2024-7357](https://www.cve.org/CVERecord?id=CVE-2024-7357)
 - [CVE-2025-4841](https://www.cve.org/CVERecord?id=CVE-2025-4841)
@@ -129,18 +111,23 @@ projects:
 Project logos live under `src/assets/projects/` and use their filename in
 frontmatter, so `pastepilot.png` maps to
 `src/assets/projects/pastepilot.png`. Astro optimizes these images at build
-time. Cards link to GitHub and refresh public repo metadata in the browser when
-available. GitHub requests are lazy-loaded near the project cards, capped with a
-short timeout, and cached in `localStorage` so slow or blocked API access does
-not delay the page.
+time. Each card links to its GitHub repository and renders its localized
+description and initial metadata from Markdown.
 
 ## Performance Notes
 
 - The site uses system font stacks, avoiding render-blocking external font
   requests.
-- GitHub API metadata is treated as progressive enhancement. Static frontmatter
-  renders first; stars, language, and topics update only if the API responds
-  quickly enough.
+- When the cards approach the viewport, the browser requests
+  `/api/projects.json` once for all projects. On Vercel this endpoint fetches
+  the public GitHub REST API for the repositories listed in published project
+  sections. Both languages share the response. Vercel caches a successful
+  response for 12 hours and can serve it for a further day while a visit
+  triggers revalidation. An upstream error can use a previously cached response
+  for up to seven additional days.
+- If some repositories fail, the endpoint returns the successful entries with
+  a one-minute cache. A complete outage returns a 503. Cards without a result
+  keep their Markdown metadata.
 - Vercel cache headers keep hashed Astro assets and static project images cached
   for long-lived repeat visits.
 
@@ -165,7 +152,9 @@ The repository is configured for Vercel in `vercel.json`:
 
 - Framework: Astro
 - Build command: `npm run build`
-- Output directory: `dist`
+- The Vercel build (`VERCEL=1`) generates pre-rendered pages and a metadata
+  function in `.vercel/output/`. Local static builds write `dist/` with a
+  build-time metadata snapshot for `npm run preview`.
 
 Import the repository into Vercel and deploy it without additional project
 settings.

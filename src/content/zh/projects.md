@@ -1,6 +1,6 @@
 ---
-title: 项目
-order: 45
+title: 开源项目
+order: 15
 kind: projects
 projects:
   - repo: BeaCox/CleanerX

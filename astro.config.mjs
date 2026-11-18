@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
 const siteOrigin = 'https://beacox.space';
@@ -28,10 +29,21 @@ const rehypeExternalLinks = () => (tree) => {
 
 export default defineConfig({
   site: siteOrigin,
+  adapter: process.env.VERCEL === '1' ? vercel() : undefined,
   markdown: {
     rehypePlugins: [rehypeExternalLinks],
   },
   integrations: [
+    {
+      name: 'project-metadata-route',
+      hooks: {
+        'astro:route:setup': ({ route }) => {
+          if (route.component === 'src/pages/api/projects.json.ts') {
+            route.prerender = process.env.VERCEL !== '1';
+          }
+        },
+      },
+    },
     sitemap({
       i18n: {
         defaultLocale: 'zh',

@@ -10,11 +10,15 @@ const { section } = Astro.props;
 const Content = section.Content;
 ---
 
-<section id={section.id} class="content-section" data-reveal data-section-id={section.id}>
-  <header class="section-header">
+<section id={section.id} class:list={['chapter', `chapter--${section.kind}`]} data-section>
+  <header class="chapter-heading">
     <h2>{section.title}</h2>
+    {section.subsections?.length && (
+      <nav class="subsections" aria-label={section.title}>
+        {section.subsections.map((sub) => <a href={`#${sub.id}`}>{sub.title}</a>)}
+      </nav>
+    )}
   </header>
-
   {section.kind === 'projects' && section.projects ? (
     <ProjectCards projects={section.projects} />
   ) : (

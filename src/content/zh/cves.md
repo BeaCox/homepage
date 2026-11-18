@@ -2,57 +2,48 @@
 title: 漏洞披露
 order: 50
 kind: cves
-subsections:
-  - id: cves-open-source
-    title: 开源项目
-  - id: cves-iot
-    title: IoT
 ---
 
-<h3 id="cves-open-source">开源项目</h3>
-
-#### Apache bRPC
+### <span id="cves-open-source">Apache bRPC</span>
 
 - [CVE-2026-61902](https://www.cve.org/CVERecord?id=CVE-2026-61902)
 
-#### Deskflow
+### Deskflow
 
 - [CVE-2026-63409](https://www.cve.org/CVERecord?id=CVE-2026-63409)
 - [CVE-2026-65976](https://www.cve.org/CVERecord?id=CVE-2026-65976)
 
-#### Hickory DNS
+### Hickory DNS
 
 - [GHSA-5r56-v84h-c3w5](https://github.com/hickory-dns/hickory-dns/security/advisories/GHSA-5r56-v84h-c3w5)
 
-#### libyang
+### libyang
 
 - [GHSA-3cpx-8f5j-mqm9](https://github.com/CESNET/libyang/security/advisories/GHSA-3cpx-8f5j-mqm9)
 - [GHSA-x4rw-8p9g-8jmp](https://github.com/CESNET/libyang/security/advisories/GHSA-x4rw-8p9g-8jmp)
 
-#### pupnp
+### pupnp
 
 - [CVE-2026-55862](https://www.cve.org/CVERecord?id=CVE-2026-55862)
 - [CVE-2026-57486](https://www.cve.org/CVERecord?id=CVE-2026-57486)
 - [CVE-2026-57488](https://www.cve.org/CVERecord?id=CVE-2026-57488)
 
-#### RomM
+### RomM
 
 - [GHSA-h2hj-wr57-c939](https://github.com/rommapp/romm/security/advisories/GHSA-h2hj-wr57-c939)
 
-#### Tabby
+### Tabby
 
 - [CVE-2026-72903](https://www.cve.org/CVERecord?id=CVE-2026-72903)
 
-<h3 id="cves-iot">IoT</h3>
-
-#### D-Link
+### <span id="cves-iot">D-Link</span>
 
 - [CVE-2024-7357](https://www.cve.org/CVERecord?id=CVE-2024-7357)
 - [CVE-2025-4841](https://www.cve.org/CVERecord?id=CVE-2025-4841)
 - [CVE-2025-4842](https://www.cve.org/CVERecord?id=CVE-2025-4842)
 - [CVE-2025-4843](https://www.cve.org/CVERecord?id=CVE-2025-4843)
 
-#### Tenda
+### Tenda
 
 - [CVE-2024-7581](https://www.cve.org/CVERecord?id=CVE-2024-7581)
 - [CVE-2024-7582](https://www.cve.org/CVERecord?id=CVE-2024-7582)
@@ -63,7 +54,7 @@ subsections:
 - [CVE-2024-7614](https://www.cve.org/CVERecord?id=CVE-2024-7614)
 - [CVE-2024-7615](https://www.cve.org/CVERecord?id=CVE-2024-7615)
 
-#### TOTOLINK
+### TOTOLINK
 
 - [CVE-2024-7907](https://www.cve.org/CVERecord?id=CVE-2024-7907)
 - [CVE-2024-7908](https://www.cve.org/CVERecord?id=CVE-2024-7908)

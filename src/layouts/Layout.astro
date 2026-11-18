@@ -65,7 +65,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(/</g, '\\u003c
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content={profile.handle} />
-    <meta name="theme-color" content="#f7f7fc" id="theme-color" />
+    <meta name="theme-color" content="#faf9f5" id="theme-color" />
 
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang="zh-CN" href={chineseUrl} />
@@ -114,7 +114,8 @@ const structuredDataJson = JSON.stringify(structuredData).replace(/</g, '\\u003c
     <script type="application/ld+json" set:html={structuredDataJson} />
     <script is:inline>
       (function() {
-        var t = localStorage.getItem('theme');
+        var t;
+        try { t = localStorage.getItem('theme'); } catch {}
         var dark = t === 'dark' || (
           t !== 'light' &&
           window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -124,7 +125,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(/</g, '\\u003c
         }
         document.getElementById('theme-color').setAttribute(
           'content',
-          dark ? '#10101a' : '#f7f7fc'
+          dark ? '#20221f' : '#faf9f5'
         );
       })();
     </script>
