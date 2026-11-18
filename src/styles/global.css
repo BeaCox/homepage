@@ -1,3 +1,5 @@
+@import '../assets/fonts/wenkai/ranges.css';
+
 @font-face {
   font-family: 'Spectral';
   src: url('/fonts/spectral-latin-400-normal.woff2') format('woff2');
@@ -17,10 +19,10 @@
   font-weight: 400;
   font-display: swap;
 }
-/* WOFF2 subset of LXGW WenKai Lite Regular covering the Chinese Markdown content. */
+/* Prefer the small homepage subset before requesting additional WenKai ranges. */
 @font-face {
   font-family: 'WenKai Homepage';
-  src: url('/fonts/wenkai-homepage.woff2') format('woff2');
+  src: url('../assets/fonts/wenkai-homepage.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
@@ -36,7 +38,7 @@
   --line: light-dark(#d7d8ce, #474c43);
   --accent: light-dark(#a84b28, #f5a07c);
   --tint: light-dark(#f1eee5, #333730);
-  --serif: 'Spectral', 'WenKai Homepage', 'LXGW WenKai', 'Kaiti SC', KaiTi, Georgia, serif;
+  --serif: 'Spectral', 'WenKai Homepage', 'WenKai Extended', 'LXGW WenKai', 'Kaiti SC', KaiTi, Georgia, serif;
   --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
   --gutter: clamp(20px, 3.2vw, 60px);

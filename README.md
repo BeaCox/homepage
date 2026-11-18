@@ -116,8 +116,10 @@ description and initial metadata from Markdown.
 
 ## Performance Notes
 
-- The site uses system font stacks, avoiding render-blocking external font
-  requests.
+- The site serves Spectral and LXGW WenKai Lite locally. The browser uses a
+  small WenKai subset for the current Chinese introduction and headings, then
+  loads additional Unicode ranges as the text requires. Editing these sections
+  does not require rebuilding the font files.
 - When the cards approach the viewport, the browser requests
   `/api/projects.json` once for all projects. On Vercel this endpoint fetches
   the public GitHub REST API for the repositories listed in published project

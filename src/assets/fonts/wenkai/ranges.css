@@ -1,0 +1,239 @@
+/* LXGW WenKai Lite Regular 1.530, split by Unicode range for on-demand loading. */
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-0020-03a1.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0020-03A1;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-03a3-1fe5.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+03A3-1FE5;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-1fe6-2562.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+1FE6-2562;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-2563-3094.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+2563-3094;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-3095-358a.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+3095-358A;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-359e-4e18.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+359E-4E18;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-4e19-5186.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+4E19-5186;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-5187-54d6.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+5187-54D6;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-54d7-5832.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+54D7-5832;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-5833-5bc1.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+5833-5BC1;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-5bc2-5f24.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+5BC2-5F24;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-5f25-629b.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+5F25-629B;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-629c-65fa.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+629C-65FA;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-65fb-6965.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+65FB-6965;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-6966-6ce1.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+6966-6CE1;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-6ce2-7044.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+6CE2-7044;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-7045-73d5.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+7045-73D5;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-73d6-774d.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+73D6-774D;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-774e-7aea.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+774E-7AEA;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-7aeb-7e6b.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+7AEB-7E6B;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-7e6d-81bf.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+7E6D-81BF;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-81c0-8523.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+81C0-8523;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-8524-887d.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+8524-887D;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-887e-8bf7.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+887E-8BF7;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-8bf8-8f50.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+8BF8-8F50;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-8f51-92a9.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+8F51-92A9;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-92aa-960c.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+92AA-960C;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-960d-996e.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+960D-996E;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-996f-9cd3.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+996F-9CD3;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-9cd4-a4ea.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+9CD4-A4EA;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-a4eb-1f21e.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+A4EB-1F21E;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-1f21f-28408.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+1F21F-28408;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-28421-30001.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+28421-30001;
+}
+@font-face {
+  font-family: 'WenKai Extended';
+  src: url('./wenkai-30002-ffffd.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+30002-FFFFD;
+}
