@@ -44,7 +44,7 @@
 :root[data-theme='light'] { color-scheme: light; }
 :root[data-theme='dark'] { color-scheme: dark; }
 * { box-sizing: border-box; }
-html { scroll-padding-top: 60vh; }
+html { scroll-padding-top: 38dvh; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-decoration: none; }
 a:hover { color: var(--accent); }
