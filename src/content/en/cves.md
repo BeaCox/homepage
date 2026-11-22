@@ -13,6 +13,10 @@ kind: cves
 - [CVE-2026-63409](https://www.cve.org/CVERecord?id=CVE-2026-63409)
 - [CVE-2026-65976](https://www.cve.org/CVERecord?id=CVE-2026-65976)
 
+### Expr
+
+- [GHSA-pj78-4pr5-4q5m](https://github.com/expr-lang/expr/security/advisories/GHSA-pj78-4pr5-4q5m)
+
 ### Hickory DNS
 
 - [GHSA-5r56-v84h-c3w5](https://github.com/hickory-dns/hickory-dns/security/advisories/GHSA-5r56-v84h-c3w5)
