@@ -92,13 +92,28 @@ const contactLinks = profile.links.filter((link) => link !== blog);
           </a>
         </div>
         <div class="contact-links">
-          {contactLinks.map((link) => (
-            <a href={link.url} target={isHttpUrl(link.url) ? '_blank' : undefined} rel={isHttpUrl(link.url) ? 'noopener noreferrer' : undefined}>
-              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons[link.icon]} />
-              {link.label}
-            </a>
-          ))}
+          {contactLinks.map((link) => {
+            const email = link.icon === 'email' ? link.url.replace(/^mailto:/, '') : undefined;
+            return (
+              <>
+                <a href={link.url} data-email={email} target={isHttpUrl(link.url) ? '_blank' : undefined} rel={isHttpUrl(link.url) ? 'noopener noreferrer' : undefined}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons[link.icon]} />
+                  {link.label}
+                </a>
+                {email && (
+                  <button type="button" class="copy-email" aria-label={`${link.label} · ${t('contact.copyEmail')}`} title={t('contact.copyEmail')} hidden>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons.email} />
+                    <span class="email-label">
+                      {link.label}
+                      <span class="email-copied" aria-hidden="true">{t('contact.copied')}</span>
+                    </span>
+                  </button>
+                )}
+              </>
+            );
+          })}
         </div>
+        <p class="email-status" role="status"></p>
       </div>
 
       <figure class="postcard">
@@ -120,7 +135,7 @@ const contactLinks = profile.links.filter((link) => link !== blog);
   </footer>
 </Layout>
 
-<script is:inline define:vars={{ lightLabel: t('theme.light'), darkLabel: t('theme.dark') }}>
+<script is:inline define:vars={{ lightLabel: t('theme.light'), darkLabel: t('theme.dark'), emailCopied: t('contact.emailCopied'), copyFailed: t('contact.copyFailed') }}>
   const root = document.documentElement;
   const scheme = matchMedia('(prefers-color-scheme: dark)');
   const button = document.getElementById('theme-toggle');
@@ -138,9 +153,40 @@ const contactLinks = profile.links.filter((link) => link !== blog);
   syncTheme();
   scheme.addEventListener('change', syncTheme);
 
+  const copyButton = document.querySelector('.copy-email');
+  const emailLink = document.querySelector('[data-email]');
+  if (copyButton && emailLink && navigator.clipboard?.writeText) {
+    const status = document.querySelector('.email-status');
+    const email = emailLink.dataset.email;
+    let feedbackTimer;
+    emailLink.hidden = true;
+    copyButton.hidden = false;
+    function resetFeedback() {
+      copyButton.removeAttribute('data-copied');
+      status.textContent = '';
+      status.removeAttribute('data-error');
+    }
+    copyButton.addEventListener('click', async () => {
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(email);
+        copied = true;
+      } catch {}
+      clearTimeout(feedbackTimer);
+      copyButton.toggleAttribute('data-copied', copied);
+      status.toggleAttribute('data-error', !copied);
+      status.textContent = copied ? emailCopied : `${copyFailed} · ${email}`;
+      feedbackTimer = setTimeout(resetFeedback, copied ? 1800 : 7000);
+    });
+  }
+
   const nav = document.querySelector('.chapter-nav');
   const links = [...nav.querySelectorAll('a')];
   const targets = links.map((link) => document.getElementById(link.hash.slice(1)));
+  function updateNavEdges() {
+    nav.toggleAttribute('data-scroll-start', nav.scrollLeft > 1);
+    nav.toggleAttribute('data-scroll-end', nav.scrollWidth - nav.clientWidth - nav.scrollLeft > 1);
+  }
   function markChapter() {
     // Match native fragment navigation, allowing for subpixel scroll rounding.
     const marker = parseFloat(getComputedStyle(root).scrollPaddingTop) + 1;
@@ -168,11 +214,17 @@ const contactLinks = profile.links.filter((link) => link !== blog);
     if (nav.scrollWidth > nav.clientWidth) {
       nav.scrollLeft += active.getBoundingClientRect().left - nav.getBoundingClientRect().left - (nav.clientWidth - active.offsetWidth) / 2;
     }
+    updateNavEdges();
     lastActive = active;
   }
   let lastActive;
   window.addEventListener('scroll', markChapter, { passive: true });
-  window.addEventListener('resize', markChapter);
+  window.addEventListener('resize', () => {
+    markChapter();
+    updateNavEdges();
+  });
   window.addEventListener('pageshow', markChapter);
   window.addEventListener('hashchange', markChapter);
+  nav.addEventListener('scroll', updateNavEdges, { passive: true });
+  document.fonts.ready.then(updateNavEdges);
 </script>

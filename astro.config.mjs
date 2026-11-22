@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
+import { rehypeSectionLayouts } from './src/config/rehype-section-layouts.mjs';
 
 const siteOrigin = 'https://beacox.space';
 
@@ -31,7 +32,7 @@ export default defineConfig({
   site: siteOrigin,
   adapter: process.env.VERCEL === '1' ? vercel() : undefined,
   markdown: {
-    rehypePlugins: [rehypeExternalLinks],
+    rehypePlugins: [rehypeSectionLayouts, rehypeExternalLinks],
   },
   integrations: [
     {

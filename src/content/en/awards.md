@@ -6,7 +6,7 @@ kind: timeline
 
 ### 2024-11
 
-8th Qiangwang Cup — **1st place in the online round**
+8th Qiangwang Cup — <strong class="award-honor">1st place in the online round</strong>
 
 ### 2024-06
 

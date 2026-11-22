@@ -65,8 +65,9 @@ lists, emphasis, and blockquotes are supported.
 
 ### Timeline
 
-Use `kind: timeline`. Each level-three heading is treated as the date, and the
-following paragraph is treated as the entry body:
+Use `kind: timeline`. Each level-three heading starts a dated entry. Any
+paragraphs, lists, and blockquotes that follow belong to it until the next
+level-three heading:
 
 ```md
 ### 2025–2028
@@ -78,7 +79,8 @@ Shanghai Jiao Tong University
 ### CVEs
 
 Use `kind: cves`. Each level-three heading names a project or vendor and is
-followed by a list of disclosure links.
+followed by a list of disclosure links. Link labels containing CVE or GHSA IDs
+become badges and contribute to the disclosure count once per ID.
 
 ```md
 ### D-Link

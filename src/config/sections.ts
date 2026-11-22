@@ -25,6 +25,7 @@ export interface PageSection {
   index: string;
   kind: SectionKind;
   Content: AstroComponentFactory;
+  disclosureCount?: number;
   subsections?: SectionSubsection[];
   projects?: ProjectItem[];
 }
@@ -35,7 +36,8 @@ export async function getPageSections(lang: Lang): Promise<PageSection[]> {
     : await getCollection('en', ({ data }) => !data.draft);
 
   const sections = await Promise.all(entries.map(async (entry) => {
-    const { Content } = await render(entry);
+    const { Content, remarkPluginFrontmatter } = await render(entry);
+    const { disclosureCount } = remarkPluginFrontmatter;
 
     return {
       id: entry.id.replace(/\.md$/, ''),
@@ -43,6 +45,7 @@ export async function getPageSections(lang: Lang): Promise<PageSection[]> {
       order: entry.data.order,
       kind: entry.data.kind,
       Content,
+      disclosureCount: typeof disclosureCount === 'number' ? disclosureCount : undefined,
       subsections: entry.data.subsections,
       projects: entry.data.projects,
     };

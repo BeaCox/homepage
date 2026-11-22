@@ -4,7 +4,7 @@ order: 30
 kind: timeline
 ---
 
-### 2026.08–至今
+### 2026.08–<span class="timeline-present">至今</span>
 
 **Agent 开发实习生**\
 [上海飞宇极光科技有限公司](https://feysh.cn/cn)

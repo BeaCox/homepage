@@ -4,7 +4,7 @@ order: 30
 kind: timeline
 ---
 
-### 2026.08–Present
+### 2026.08–<span class="timeline-present">Present</span>
 
 **Agent Development Intern**\
 [Feysh Technology](https://feysh.cn/en)
