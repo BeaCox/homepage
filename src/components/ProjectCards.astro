@@ -19,7 +19,7 @@ const getProjectLogo = (logo?: string) => logo
 ---
 
 <div class="project-grid">
-  {projects.map((p) => {
+  {projects.map((p, index) => {
     const logo = getProjectLogo(p.logo);
 
     return (
@@ -38,7 +38,8 @@ const getProjectLogo = (logo?: string) => logo
             alt=""
             width="160"
             height="160"
-            loading="lazy"
+            loading={index < 3 ? 'eager' : 'lazy'}
+            fetchpriority="low"
             format="webp"
           />
         )}

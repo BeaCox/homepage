@@ -44,19 +44,21 @@ const contactLinks = profile.links.filter((link) => link !== blog);
 <Layout title={t('site.title')} description={t('site.description')} lang={isEnglish ? 'en' : 'zh-CN'}>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href={isEnglish ? '/en/' : '/'}>
+      <a class="brand" href="#top">
         {profile.handle}
       </a>
-      <nav class="chapter-nav" aria-label={isEnglish ? 'Contents' : '章节导航'}>
-        {sections.map((section) => (
-          <>
-            <a href={`#${section.id}`} aria-current={section === aboutSection ? 'location' : undefined}>{section.title}</a>
-            {section.subsections?.map((sub) => (
-              <a href={`#${sub.id}`} data-parent={section.id} hidden>{sub.title}</a>
-            ))}
-          </>
-        ))}
-      </nav>
+      <div class="chapter-navigation">
+        <nav class="chapter-nav" aria-label={isEnglish ? 'Contents' : '章节导航'}>
+          {sections.map((section) => (
+            <>
+              <a href={`#${section.id}`} aria-current={section === aboutSection ? 'location' : undefined}>{section.title}</a>
+              {section.subsections?.map((sub) => (
+                <a href={`#${sub.id}`} data-parent={section.id} hidden>{sub.title}</a>
+              ))}
+            </>
+          ))}
+        </nav>
+      </div>
       <div class="preferences">
         <a href={isEnglish ? '/' : '/en/'} aria-label={t('lang.switchTitle')} class="language-switch">
           {t('lang.switch')}

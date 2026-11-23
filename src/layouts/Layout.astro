@@ -2,6 +2,7 @@
 import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import avatar from '../assets/avatar.png';
+import wenkaiHomepage from '../assets/fonts/wenkai-homepage.woff2?url';
 import { profile } from '../i18n/locales';
 
 interface Props {
@@ -57,7 +58,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(/</g, '\\u003c
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html id="top" lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,6 +68,8 @@ const structuredDataJson = JSON.stringify(structuredData).replace(/</g, '\\u003c
     <meta name="author" content={profile.handle} />
     <meta name="theme-color" content="#faf9f5" id="theme-color" />
 
+    <link rel="preload" href="/fonts/spectral-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    {!isEnglish && <link rel="preload" href={wenkaiHomepage} as="font" type="font/woff2" crossorigin="anonymous" />}
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang="zh-CN" href={chineseUrl} />
     <link rel="alternate" hreflang="en" href={englishUrl} />
