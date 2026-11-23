@@ -13,8 +13,7 @@ export const ui = {
     'contact.copied': '已复制',
     'contact.emailCopied': '邮箱地址已复制',
     'contact.copyFailed': '请手动复制邮箱地址',
-    'resume.download': '下载简历',
-    'resume.label': '简历 PDF',
+    'resume.view': '查看简历',
   },
   en: {
     'site.title': 'BeaCox | Software Security & AI for Security',
@@ -30,8 +29,7 @@ export const ui = {
     'contact.copied': 'Copied',
     'contact.emailCopied': 'Email address copied',
     'contact.copyFailed': 'Copy this email address manually',
-    'resume.download': 'Download résumé',
-    'resume.label': 'Résumé PDF',
+    'resume.view': 'View CV',
   },
 } as const;
 

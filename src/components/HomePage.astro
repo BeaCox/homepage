@@ -88,9 +88,10 @@ const contactLinks = profile.links.filter((link) => link !== blog);
             {isEnglish ? 'Read my blog' : '阅读博客'}
             <span aria-hidden="true">↗</span>
           </a>
-          <a class="action" href="/resume.pdf" download="BeaCox-Resume.pdf">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m-4-4 4 4 4-4M4 15v5h16v-5"/></svg>
-            {t('resume.download')}
+          <a class="action" href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6m-6 4h6"/></svg>
+            {t('resume.view')}
+            <span aria-hidden="true">↗</span>
           </a>
         </div>
         <div class="contact-links">
