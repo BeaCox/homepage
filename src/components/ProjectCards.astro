@@ -33,7 +33,11 @@ const getProjectLogo = (logo?: string) => logo
       <div class="project-art">
         {logo && (
           <Image
-            class="project-logo"
+            class:list={[
+              'project-logo',
+              p.logo === 'pastepilot.png' && 'project-logo--framed',
+              p.logo === 'cleanerx.png' && 'project-logo--padded',
+            ]}
             src={logo}
             alt=""
             width="160"

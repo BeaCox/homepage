@@ -51,7 +51,16 @@ const contactLinks = profile.links.filter((link) => link !== blog);
         <nav class="chapter-nav" aria-label={isEnglish ? 'Contents' : '章节导航'}>
           {sections.map((section) => (
             <>
-              <a href={`#${section.id}`} aria-current={section === aboutSection ? 'location' : undefined}>{section.title}</a>
+              <a href={`#${section.id}`} aria-current={section === aboutSection ? 'location' : undefined}>
+                {section.shortTitle && section.shortTitle !== section.title ? (
+                  <>
+                    <span class="nav-label-full">{section.title}</span>
+                    <span class="nav-label-short">{section.shortTitle}</span>
+                  </>
+                ) : (
+                  section.title
+                )}
+              </a>
               {section.subsections?.map((sub) => (
                 <a href={`#${sub.id}`} data-parent={section.id} hidden>{sub.title}</a>
               ))}
@@ -104,12 +113,13 @@ const contactLinks = profile.links.filter((link) => link !== blog);
                   {link.label}
                 </a>
                 {email && (
-                  <button type="button" class="copy-email" aria-label={`${link.label} · ${t('contact.copyEmail')}`} title={t('contact.copyEmail')} hidden>
+                  <button type="button" class="copy-email" aria-label={`${link.label} · ${t('contact.copyEmail')}`} title={`${t('contact.copyEmail')} (${email})`} hidden>
                     <svg viewBox="0 0 24 24" aria-hidden="true" set:html={socialIcons.email} />
                     <span class="email-label">
                       {link.label}
                       <span class="email-copied" aria-hidden="true">{t('contact.copied')}</span>
                     </span>
+                    <svg class="copy-hint" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                   </button>
                 )}
               </>
@@ -134,7 +144,10 @@ const contactLinks = profile.links.filter((link) => link !== blog);
 
   <footer class="container site-footer">
     <span>© {yearRange} <a href={profile.url}>{profile.handle}</a></span>
-    <a href={profile.sourceUrl} target="_blank" rel="noopener noreferrer">{t('footer.source')} ↗</a>
+    <div class="footer-links">
+      <a href="#top">{t('footer.top')} ↑</a>
+      <a href={profile.sourceUrl} target="_blank" rel="noopener noreferrer">{t('footer.source')} ↗</a>
+    </div>
   </footer>
 </Layout>
 
@@ -192,7 +205,8 @@ const contactLinks = profile.links.filter((link) => link !== blog);
   }
   function markChapter() {
     // Match native fragment navigation, allowing for subpixel scroll rounding.
-    const marker = parseFloat(getComputedStyle(root).scrollPaddingTop) + 1;
+    const navOffset = parseFloat(getComputedStyle(root).scrollPaddingTop) + 1;
+    const marker = Math.max(navOffset, window.innerHeight * 0.25);
     let active = links[0];
     for (const [i, target] of targets.entries()) {
       if (target && target.getBoundingClientRect().top <= marker) active = links[i];
@@ -203,7 +217,7 @@ const contactLinks = profile.links.filter((link) => link !== blog);
       const index = links.findIndex((link) => link.hash === location.hash);
       const top = targets[index]?.getBoundingClientRect().top;
       // Keep an explicitly chosen anchor when the page edge limits scrolling.
-      const clamped = atTop ? top <= marker : top >= marker - 2;
+      const clamped = atTop ? top <= navOffset : top >= navOffset - 2;
       active = clamped ? links[index] : atTop ? links[0] : links.at(-1);
     }
     if (active === lastActive) return;
@@ -215,13 +229,23 @@ const contactLinks = profile.links.filter((link) => link !== blog);
       else link.removeAttribute('aria-current');
     }
     if (nav.scrollWidth > nav.clientWidth) {
-      nav.scrollLeft += active.getBoundingClientRect().left - nav.getBoundingClientRect().left - (nav.clientWidth - active.offsetWidth) / 2;
+      const targetLeft = nav.scrollLeft + active.getBoundingClientRect().left - nav.getBoundingClientRect().left - (nav.clientWidth - active.offsetWidth) / 2;
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      nav.scrollTo({ left: targetLeft, behavior: reduceMotion ? 'auto' : 'smooth' });
     }
     updateNavEdges();
     lastActive = active;
   }
   let lastActive;
-  window.addEventListener('scroll', markChapter, { passive: true });
+  let scrollRaf = 0;
+  function onScroll() {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(() => {
+      scrollRaf = 0;
+      markChapter();
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => {
     markChapter();
     updateNavEdges();

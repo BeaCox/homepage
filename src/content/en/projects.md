@@ -1,11 +1,12 @@
 ---
 title: Projects
+shortTitle: Projects
 order: 15
 kind: projects
 projects:
   - repo: BeaCox/CleanerX
     logo: cleanerx.png
-    description: A local-only desktop app to review and safely clean storage created by Codex, Claude Code, OpenCode, and pi.
+    description: A local-only desktop app to inspect and safely clean storage created by Codex, Claude Code, OpenCode, and pi.
     language: Rust
     topics:
       - claude-code
@@ -14,7 +15,7 @@ projects:
       - data-cleanup
   - repo: BeaCox/gdb-mcp
     logo: gdb-mcp.svg
-    description: A production-ready MCP server for multi-session GDB and gdbserver debugging, exposing programmable debugging workflows through GDB/MI.
+    description: A multi-session GDB and gdbserver MCP server giving AI coding tools programmable debugging via GDB/MI.
     language: Python
     topics:
       - mcp
@@ -23,7 +24,7 @@ projects:
       - gdbserver
   - repo: BeaCox/PastePilot
     logo: pastepilot.png
-    description: A lightweight macOS clipboard manager built for developers. Recognizes what you copied and suggests the next useful action — no plugins, no cloud, everything stays on your Mac.
+    description: A lightweight macOS clipboard manager for developers that detects copied content and suggests local actions with zero plugins.
     language: Swift
     topics:
       - clipboard

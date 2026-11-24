@@ -1,5 +1,6 @@
 ---
 title: Education
+shortTitle: Education
 order: 20
 kind: timeline
 ---

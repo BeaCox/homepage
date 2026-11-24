@@ -1,10 +1,13 @@
 ---
 title: CVEs
+shortTitle: CVEs
 order: 50
 kind: cves
 ---
 
-### <span id="cves-open-source">Apache bRPC</span>
+## <span id="cves-open-source">Open-Source Software</span>
+
+### Apache bRPC
 
 - [CVE-2026-61902](https://www.cve.org/CVERecord?id=CVE-2026-61902)
 
@@ -40,7 +43,9 @@ kind: cves
 
 - [CVE-2026-72903](https://www.cve.org/CVERecord?id=CVE-2026-72903)
 
-### <span id="cves-iot">D-Link</span>
+## <span id="cves-iot">IoT Devices</span>
+
+### D-Link
 
 - [CVE-2024-7357](https://www.cve.org/CVERecord?id=CVE-2024-7357)
 - [CVE-2025-4841](https://www.cve.org/CVERecord?id=CVE-2025-4841)

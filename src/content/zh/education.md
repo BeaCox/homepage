@@ -1,5 +1,6 @@
 ---
 title: 教育经历
+shortTitle: 教育
 order: 20
 kind: timeline
 ---

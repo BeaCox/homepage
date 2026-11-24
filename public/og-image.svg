@@ -1,35 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fdfdff"/>
-      <stop offset="1" stop-color="#eeeefa"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0.2" cy="0.1" r="0.9">
-      <stop offset="0" stop-color="#746ee0" stop-opacity="0.28"/>
-      <stop offset="1" stop-color="#746ee0" stop-opacity="0"/>
+    <radialGradient id="paper-glow" cx="0.18" cy="0.15" r="0.9">
+      <stop offset="0%" stop-color="#f1eee5"/>
+      <stop offset="100%" stop-color="#faf9f5"/>
     </radialGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#746ee0"/>
-      <stop offset="1" stop-color="#4c479f"/>
-    </linearGradient>
+    <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.1" fill="#242722" fill-opacity="0.08"/>
+    </pattern>
   </defs>
 
-  <rect width="1200" height="630" fill="url(#background)"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
-  <circle cx="1080" cy="90" r="220" fill="#746ee0" opacity="0.05"/>
-  <circle cx="1125" cy="575" r="310" fill="#5b56b6" opacity="0.045"/>
+  <rect width="1200" height="630" fill="url(#paper-glow)"/>
+  <rect x="760" y="0" width="440" height="630" fill="url(#dots)"/>
 
-  <g transform="translate(84 80)">
-    <rect width="1032" height="470" rx="44" fill="#ffffff" fill-opacity="0.74" stroke="#6f6c96" stroke-opacity="0.2"/>
-    <rect x="48" y="48" width="92" height="92" rx="28" fill="url(#accent)"/>
-    <text x="94" y="111" fill="#ffffff" font-family="Georgia, serif" font-size="43" font-weight="700" text-anchor="middle">B</text>
+  <g transform="translate(72 64)">
+    <rect width="1056" height="502" rx="20" fill="#fffefa" stroke="#d7d8ce" stroke-width="2"/>
 
-    <text x="48" y="240" fill="#18182a" font-family="Georgia, serif" font-size="88" font-weight="600" letter-spacing="-3">BeaCox</text>
-    <text x="52" y="305" fill="#5b56b6" font-family="Arial, sans-serif" font-size="31" font-weight="700">SOFTWARE SECURITY</text>
-    <text x="52" y="350" fill="#5b56b6" font-family="Arial, sans-serif" font-size="31" font-weight="700">AI FOR SECURITY</text>
+    <!-- Top badge + compass mark -->
+    <g transform="translate(64 56)">
+      <rect width="68" height="68" rx="16" fill="#faf9f5" stroke="#d7d8ce" stroke-width="2"/>
+      <text x="27" y="48" fill="#242722" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" text-anchor="middle">B</text>
+      <circle cx="49" cy="44" r="4.2" fill="#a84b28"/>
+    </g>
 
-    <line x1="52" y1="395" x2="980" y2="395" stroke="#6f6c96" stroke-opacity="0.2"/>
-    <text x="52" y="438" fill="#4d4d66" font-family="Arial, sans-serif" font-size="24">Program Analysis  /  Vulnerability Research  /  CTF</text>
-    <text x="980" y="438" fill="#7e7e98" font-family="Arial, sans-serif" font-size="22" text-anchor="end">beacox.space</text>
+    <!-- Compass rose -->
+    <g transform="translate(912 60)" fill="none" stroke="#a84b28" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+      <circle cx="40" cy="40" r="30"/>
+      <path d="m55 22-10 22-20 13 10-25Z"/>
+      <path d="m35 32 10 13"/>
+      <path d="M40 2v12m0 52v12M2 40h12m52 0h12"/>
+    </g>
+
+    <!-- Main typography -->
+    <text x="64" y="238" fill="#242722" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700" letter-spacing="-2">BeaCox<tspan fill="#a84b28">.</tspan></text>
+    <text x="68" y="302" fill="#a84b28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="30" font-weight="600" letter-spacing="0.4">Software Security · AI for Security</text>
+    <text x="68" y="352" fill="#575c54" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-style="italic">Stay humble, remain critical.</text>
+
+    <!-- Footer divider and metadata -->
+    <line x1="64" y1="406" x2="992" y2="406" stroke="#d7d8ce" stroke-width="1.5"/>
+    <text x="64" y="454" fill="#484d46" font-family="ui-monospace, 'SFMono-Regular', Menlo, monospace" font-size="21">Program Analysis · Vulnerability Research · CTF</text>
+    <text x="992" y="454" fill="#575c54" font-family="ui-monospace, 'SFMono-Regular', Menlo, monospace" font-size="21" text-anchor="end">beacox.space</text>
   </g>
 </svg>

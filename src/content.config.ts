@@ -17,6 +17,7 @@ const subsectionSchema = z.object({
 
 const sectionSchema = z.object({
   title: z.string(),
+  shortTitle: z.string().optional(),
   order: z.number(),
   kind: z.enum(['about', 'prose', 'timeline', 'cves', 'projects']).default('prose'),
   draft: z.boolean().default(false),

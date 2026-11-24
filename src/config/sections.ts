@@ -21,6 +21,7 @@ export interface SectionSubsection {
 export interface PageSection {
   id: string;
   title: string;
+  shortTitle?: string;
   order: number;
   index: string;
   kind: SectionKind;
@@ -42,6 +43,7 @@ export async function getPageSections(lang: Lang): Promise<PageSection[]> {
     return {
       id: entry.id.replace(/\.md$/, ''),
       title: entry.data.title,
+      shortTitle: entry.data.shortTitle,
       order: entry.data.order,
       kind: entry.data.kind,
       Content,

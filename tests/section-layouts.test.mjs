@@ -40,3 +40,23 @@ test('disclosure badges count unique CVE and GHSA labels', () => {
     ['disclosure-badge'], ['disclosure-badge'], ['disclosure-badge'], undefined,
   ]);
 });
+
+test('cves group headings break entries and count per group', () => {
+  const ossHeading = element('h2', [{ type: 'text', value: 'Open-Source' }]);
+  const iotHeading = element('h2', [{ type: 'text', value: 'IoT' }]);
+  const { tree, frontmatter } = renderSection('cves', [
+    ossHeading,
+    element('h3', [{ type: 'text', value: 'ProjA' }]),
+    element('ul', [element('li', [link('CVE-2026-1000')])]),
+    iotHeading,
+    element('h3', [{ type: 'text', value: 'VendorB' }]),
+    element('ul', [element('li', [link('CVE-2024-2000')]), element('li', [link('CVE-2024-2001')])]),
+  ]);
+
+  assert.equal(frontmatter.disclosureCount, 3);
+  assert.equal(tree.children.length, 4);
+  assert.equal(tree.children[0], ossHeading);
+  assert.equal(tree.children[2], iotHeading);
+  assert.equal(ossHeading.children.at(-1).children[0].value, '1');
+  assert.equal(iotHeading.children.at(-1).children[0].value, '2');
+});
